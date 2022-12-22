@@ -10,27 +10,27 @@ var rotasPropriedades = []Route {
 		URI:		"/minhas_propriedades",
 		Metodo:		"GET",
 		Funcao:		controllers.ListarPropriedades,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	},
 	{
 		//Adiciona uma Propriedade
 		URI:		"/minhas_propriedades",
 		Metodo:		"POST",
 		Funcao:		controllers.AdicionarPropriedade,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	},
 	{
-		//Atualiza uma Propriedade
-		URI:		"/minhas_propriedades",
-		Metodo:		"PUT",
+		//Atualiza uma Propriedade do usuario
+		URI:		"/minhas_propriedades/{propriedadeId}",
+		Metodo:		"PATCH",
 		Funcao:		controllers.AtualizarPropriedade,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	},
 	{
-		//Remove uma Propriedade
-		URI:		"/minhas_propriedades",
+		//Remove uma Propriedade do usuario
+		URI:		"/minhas_propriedades/{propriedadeId}",
 		Metodo:		"DELETE",
 		Funcao:		controllers.RemoverPropriedade,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	},
 }  

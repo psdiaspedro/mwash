@@ -10,27 +10,27 @@ var rotasAgendamentos = []Route {
 		URI:		"/meus_agendamentos",
 		Metodo:		"GET",
 		Funcao:		controllers.BuscarAgendamento,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	}, 
 	{
 		//Adiciona um Agendamento
 		URI:		"/agendar",
 		Metodo:		"POST",  
 		Funcao:		controllers.AdicionarAgendamento,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	},
 	{
 		//Atualiza um Agendamento 
 		URI:		"/meus_agendamentos",
 		Metodo:		"PUT", 
 		Funcao:		controllers.AtualizarAgendamento,
-		RequerAuth:	false, 
+		RequerAuth:	true, 
 	},
 	{
 		//Remove um Agendamento
 		URI:		"/meus_agendamentos",
 		Metodo:		"DELETE",  
 		Funcao:		controllers.RemoverAgendamento,
-		RequerAuth:	false,
+		RequerAuth:	true,
 	},
 }  

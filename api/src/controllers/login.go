@@ -41,6 +41,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	
 	if erro = seguranca.ChecaSenha(usuarioRequest.Senha, usuarioBanco.Senha); erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
+		return
 	}
 
 	usuarioBanco.Token, erro = auth.GerarToken(usuarioBanco.ID, usuarioBanco.Admin)

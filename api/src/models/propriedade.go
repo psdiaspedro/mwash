@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -16,6 +17,62 @@ type Propriedade struct {
 	Complemento		string	`json:"complemento,omitempty"`
 }
 
+func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID uint64) (string, []any) {
+	query := "update propriedades set"
+	var valores []any
+
+	if propriedade.Cidade != "" {
+		query += " cidade = ?"
+		valores = append(valores, prop.Cidade)
+	}
+
+	if propriedade.Bairro != "" {
+		if propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " bairro = ?"
+		valores = append(valores, prop.Bairro)
+	} 
+
+	if propriedade.CEP != "" {
+		if propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " CEP = ?"
+		valores = append(valores, prop.CEP)
+	}
+
+	if propriedade.Logadouro != "" {
+		if propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " logadouro = ?"
+		valores = append(valores, prop.Logadouro)
+	}
+
+	if propriedade.Numero != "" {
+		if propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " numero = ?"
+		valores = append(valores, prop.Numero)
+	}
+
+	if propriedade.Complemento != "" {
+		if propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " complemento = ?"
+		valores = append(valores, prop.Complemento)
+	}
+	
+	valores = append(valores, fmt.Sprintf("%d", propriedadeID))
+	query += " where id = ?"
+
+	fmt.Println(query)
+	return query, valores
+}
+
 func (propriedade *Propriedade) Preparar() error {
 	if erro := propriedade.Validar(); erro != nil {
 		return erro
@@ -26,24 +83,8 @@ func (propriedade *Propriedade) Preparar() error {
 }
 
 func (propriedade *Propriedade) Validar() error {
-	if propriedade.Cidade == "" {
-		return errors.New("cidade é obrigatório")
-	}
-
-	if propriedade.Bairro == "" {
-		return errors.New("bairro é obrigatório")
-	}
-
-	if propriedade.CEP == "" {
-		return errors.New("CEP é obrigatório")
-	}
-
-	if propriedade.Logadouro == "" {
-		return errors.New("Logadouro é obrigatório")
-	}
-
-	if propriedade.Numero == "" {
-		return errors.New("Numero é obrigatório")
+	if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == "" {
+		return errors.New("Campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero ou complemento")
 	}
 
 	return nil
