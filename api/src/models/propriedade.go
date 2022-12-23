@@ -69,7 +69,6 @@ func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID
 	valores = append(valores, fmt.Sprintf("%d", propriedadeID))
 	query += " where id = ?"
 
-	fmt.Println(query)
 	return query, valores
 }
 

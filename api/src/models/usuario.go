@@ -3,6 +3,7 @@ package models
 import (
 	"api/src/seguranca"
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/badoux/checkmail"
@@ -31,25 +32,75 @@ func (usuario *Usuario) Preparar(etapa string) error {
 }
 
 func (usuario *Usuario) validar(etapa string) error {
-	if usuario.Nome == "" {
-		return errors.New("Nome eh obrigatorio")
-	}
+	if etapa == "cadastro" {
+		if usuario.Nome == "" {
+			return errors.New("nome é obrigatorio")
+		}
+	
+		if usuario.Email == "" {
+			return errors.New("email é obrigatorio")
+		}
+	
+		if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
+			return errors.New("email no formato invalido")
+		}
+	
+		if usuario.Senha == "" {
+			return errors.New("senha é obrigatoria")
+		}
+	
+		if usuario.Contato == "" {
+			return errors.New("contato é obrigatorio")
+		}
+	} else if etapa == "atualizar" {
+		if usuario.Nome == "" && usuario.Email == "" && usuario.Contato == "" {
+			return errors.New("campos invalidos, você consegue atualizar um dos seguintes campos: nome, email ou contato")
+		}
 
-	if usuario.Email == "" {
-		return errors.New("Email eh obrigatorio")
+		if usuario.Senha != "" {
+			return errors.New("ops, esse não é o lugar certo para atualizar sua senha")
+		}
+		
+		if usuario.Email != "" {
+			if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
+				return errors.New("email no formato invalido")
+			}
+		}
 	}
-
-	if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
-		return errors.New("Email no formato invalido")
-	}
-
-	if etapa == "cadastro" && usuario.Senha == "" {
-		return errors.New("Senha eh obrigatoria")
-	}
-
+	
 	return nil
 }
 
+func (usuario *Usuario) GerarQueryString(user Usuario, usuarioID uint64) (string, []any) {
+	query := "update usuarios set"
+	var valores []any
+
+	if usuario.Nome != "" {
+		query += " nome = ?"
+		valores = append(valores, user.Nome)
+	}
+
+	if usuario.Email != "" {
+		if usuario.Nome != "" {
+			query += ","
+		}
+		query += " email = ?"
+		valores = append(valores, user.Email)
+	} 
+
+	if usuario.Contato != "" {
+		if usuario.Email != ""  || usuario.Nome != "" {
+			query += ","
+		}
+		query += " Contato = ?"
+		valores = append(valores, user.Contato)
+	}
+
+	valores = append(valores, fmt.Sprintf("%d", usuarioID))
+	query += " where id = ?"
+
+	return query, valores
+}
 
 func (usuario *Usuario) formatar(etapa string) error {
 	usuario.Nome = strings.TrimSpace(usuario.Nome)

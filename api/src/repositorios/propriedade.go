@@ -93,7 +93,6 @@ func (repo Propriedade) BuscarPropriedadePorId(propriedadeID uint64) (models.Pro
 }
 
 func (repo Propriedade) AtualizarPropriedade(propriedadeID uint64, propriedade models.Propriedade) error {
-	
 	query, valores := propriedade.GerarQueryString(propriedade, propriedadeID)
 	statement, erro := repo.db.Prepare(query)
 	if erro != nil {
