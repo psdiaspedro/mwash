@@ -35,8 +35,8 @@ func (repo Propriedade) CriarPropriedade(propriedade models.Propriedade) (uint64
 	return uint64(ultimoIdInserido), nil
 }
 
-func (repo Propriedade) BuscarPropriedadesDoUsuario(userID uint64) ([]models.Propriedade, error) {
-	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento from propriedades p where cliente_id = ?", userID)
+func (repo Propriedade) BuscarPropriedadesDoUsuario(usuarioID uint64) ([]models.Propriedade, error) {
+	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento from propriedades p where cliente_id = ?", usuarioID)
 	if erro != nil {
 		return nil, erro
 	}

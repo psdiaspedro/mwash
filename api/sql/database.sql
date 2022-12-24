@@ -3,6 +3,7 @@ USE mwash;
 
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS propriedades;
+DROP TABLE IF EXISTS agendamentos;
 
 CREATE TABLE usuarios(
     id int auto_increment primary key,
@@ -36,5 +37,5 @@ CREATE TABLE agendamentos(
     dia_agendamento DATE not null,
     checkin TIME,
     checkout TIME not null,
-    observacoes varchar(100) not null
+    observacoes varchar(100)
 ) ENGINE=INNODB;

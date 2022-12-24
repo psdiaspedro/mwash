@@ -13,6 +13,6 @@ require (
 )
 
 require (
-	github.com/go-sql-driver/mysql v1.7.0 // indirect
-	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
+	github.com/go-sql-driver/mysql v1.7.0
+	github.com/golang-jwt/jwt/v4 v4.4.3
 )

@@ -56,7 +56,6 @@ func AdicionarPropriedade(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respostas.JSONresponse(w, http.StatusCreated, propriedade.ID)
-	w.Write([]byte("Adicionando Propriedade..."))
 }
 
 func ListarPropriedades(w http.ResponseWriter, r *http.Request) {
