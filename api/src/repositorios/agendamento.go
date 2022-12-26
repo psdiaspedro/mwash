@@ -63,3 +63,32 @@ func (repo Agendamento) BuscarAgendamentosDoUsuario(usuarioID uint64) ([]models.
 
 	return agendamentos, nil
 }
+
+func (repo Agendamento) BuscarAgendamentosPropriedade(propriedadeID uint64) ([]models.Agendamento, error) {
+	linhas, erro := repo.db.Query("select a.id, a.propriedade_id, a.dia_agendamento, a.checkin, a.checkout, a.observacoes from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id where p.id = ?", propriedadeID)
+	if erro != nil {
+		return nil, erro
+	}
+	defer linhas.Close()
+
+	var agendamentos []models.Agendamento
+
+	for linhas.Next() {
+		var agendamento models.Agendamento
+
+		if erro = linhas.Scan(
+			&agendamento.ID,
+			&agendamento.PropriedadeID,
+			&agendamento.DiaAgendamento,
+			&agendamento.Checkin,
+			&agendamento.Checkout,
+			&agendamento.Obs,
+		); erro != nil {
+			return nil, erro
+		}
+
+		agendamentos = append(agendamentos, agendamento)
+	}
+
+	return agendamentos, nil
+}
