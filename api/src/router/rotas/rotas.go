@@ -20,6 +20,7 @@ func ConfigurarRotas(r *mux.Router) *mux.Router {
 	rotas = append(rotas, rotasAgendamentos...)
 	rotas = append(rotas, rotaLogin)
 	rotas = append(rotas, rotaCadastro)
+	rotas = append(rotas, rotasAgendamentos...)
 
 	for _, rota := range rotas {
 

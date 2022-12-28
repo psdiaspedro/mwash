@@ -20,6 +20,13 @@ var rotasAgendamentos = []Route {
 		RequerAuth:	true,
 	},
 	{
+		//Busca Todos os Agendamentos baseado em uma data
+		URI:		"/agendamentos/{data}", //data -> AAAA/MM/DD - 2006/01/02
+		Metodo:		"GET",
+		Funcao:		controllers.BuscarAgendamentosPorData,
+		RequerAuth:	true,
+	},
+	{
 		//Adiciona um Agendamento
 		URI:		"/agendamentos/propriedades/{propriedadeId}",
 		Metodo:		"POST",  

@@ -67,6 +67,46 @@ func BuscarAgendamentosPropriedade(w http.ResponseWriter, r *http.Request) {
 	respostas.JSONresponse(w, http.StatusOK, agendamentos)
 }
 
+func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
+	/*
+		URL - agendamentos/{data}
+
+		pode ser:
+			- ano "agendamentos/ano"
+			- mes "agendamentos/ano-mes"
+			- dia "agendamentos/ano-mes-dia"
+		qualquer coisa diferente disso, erro
+	*/
+	parametros := mux.Vars(r)
+	dataParametro := parametros["data"]
+	
+	db, erro := database.ConectarBancoDeDados()
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	var data models.Data
+	
+	data, erro = data.VerificaData(dataParametro)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	var agendamentos []models.Agendamento
+
+	repo := repositorios.NovoRepoAgendamento(db)
+	agendamentos, erro = repo.BuscarAgendamentosPorData(data)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSONresponse(w, http.StatusOK, agendamentos)
+}
+
 func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
 	propriedadeID, erro := strconv.ParseUint(parametros["propriedadeId"], 10, 64)
@@ -119,3 +159,4 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Removendo Agendamento..."))
 }
+
