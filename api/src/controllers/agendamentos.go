@@ -103,7 +103,6 @@ func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-
 	respostas.JSONresponse(w, http.StatusOK, agendamentos)
 }
 
@@ -159,4 +158,3 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Removendo Agendamento..."))
 }
-

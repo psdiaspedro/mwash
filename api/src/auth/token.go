@@ -72,3 +72,21 @@ func ValidaToken(r *http.Request) error {
 
 	return errors.New("token invalido")
 }
+
+func IsAdmin(r *http.Request) (bool, error) {
+	tokenString := pegaToken(r)
+	token, erro := jwt.Parse(tokenString, verificaAssinaturaToken)
+	if erro != nil {
+		return false, erro
+	}
+
+	if permissoes, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		admin, erro := strconv.ParseBool(fmt.Sprintf("%t", permissoes["admin"]))
+		if erro != nil {
+			return false, erro
+		}
+		return admin, nil
+	}
+
+	return false, errors.New("token invalido")
+}

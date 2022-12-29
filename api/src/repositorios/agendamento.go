@@ -3,8 +3,6 @@ package repositorios
 import (
 	"api/src/models"
 	"database/sql"
-	// "errors"
-	// "fmt"
 )
 
 type Agendamento struct {
@@ -37,6 +35,7 @@ func (repo Agendamento) CriarAgendamento(agendamento models.Agendamento) (uint64
 	return uint64(ultimoIdInserido), nil
 }
 
+//apenas agendamentos do cliente 
 func (repo Agendamento) BuscarAgendamentosDoUsuario(usuarioID uint64) ([]models.Agendamento, error) {
 	linhas, erro := repo.db.Query("select a.id, a.propriedade_id, a.dia_agendamento, a.checkin, a.checkout, a.observacoes from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id inner join usuarios u on u.id = p.cliente_id where u.id = ? order by a.dia_agendamento", usuarioID)
 	if erro != nil {
@@ -95,6 +94,7 @@ func (repo Agendamento) BuscarAgendamentosPropriedade(propriedadeID uint64) ([]m
 	return agendamentos, nil
 }
 
+//apenas admin
 func (repo Agendamento) BuscarAgendamentosPorData(data models.Data) ([]models.Agendamento, error) {
 	query, valores := data.GerarQueryString(data)
 	linhas, erro := repo.db.Query(query, valores...)
@@ -121,6 +121,10 @@ func (repo Agendamento) BuscarAgendamentosPorData(data models.Data) ([]models.Ag
 
 		agendamentos = append(agendamentos, agendamento)
 	}
-		
+	
 	return agendamentos, nil
 }
+
+// func (repo Agendamento) BuscarAgendamentosDeUmUsuario(usuarioID uint64) ([]models.Agendamento, error) {
+
+// }
