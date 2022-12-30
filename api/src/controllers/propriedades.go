@@ -181,5 +181,4 @@ func RemoverPropriedade(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respostas.JSONresponse(w, http.StatusNoContent, nil)
-	w.Write([]byte("Removendo Propriedade..."))
 }

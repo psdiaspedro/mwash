@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -36,4 +37,43 @@ func (agendamento *Agendamento) formatar() {
 	agendamento.Checkin = strings.TrimSpace(agendamento.Checkin)
 	agendamento.Checkout = strings.TrimSpace(agendamento.Checkout)
 	agendamento.Obs = strings.TrimSpace(agendamento.Obs)
+}
+
+func (agendamento *Agendamento) GerarQueryString(agen Agendamento, agendamentoID uint64) (string, []any) {
+	query := "update agendamentos set"
+	var valores []any
+
+	if agendamento.DiaAgendamento != "" {
+		query += " dia_agendamento = ?"
+		valores = append(valores, agen.DiaAgendamento)
+	}
+
+	if agendamento.Checkin != "" {
+		if agendamento.DiaAgendamento != "" {
+			query += ","
+		}
+		query += " checkin = ?"
+		valores = append(valores, agen.Checkin)
+	} 
+
+	if agendamento.Checkout != "" {
+		if agendamento.Checkin != ""  || agendamento.DiaAgendamento != "" {
+			query += ","
+		}
+		query += " checkout = ?"
+		valores = append(valores, agen.Checkout)
+	}
+
+	if agendamento.Obs != "" {
+		if agendamento.Checkout != "" || agendamento.Checkin != ""  || agendamento.DiaAgendamento != "" {
+			query += ","
+		}
+		query += " observacoes = ?"
+		valores = append(valores, agen.Obs)
+	}
+	
+	query += " where id = ?"
+	valores = append(valores, fmt.Sprintf("%d", agendamentoID))
+
+	return query, valores
 }
