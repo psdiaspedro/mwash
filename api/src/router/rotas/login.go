@@ -4,7 +4,12 @@ import (
 	"api/src/controllers"
 )
 
-//Envia os dados do login
+/*
+	Rota principal para acesso à plataforma
+	- Possui apenas /login
+	- Não precisa de auth pois é a porta de entrada
+	- Chama a função Login
+*/
 var rotaLogin = Route {
 	URI:		"/login",
 	Metodo:		"POST",

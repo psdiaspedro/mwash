@@ -33,34 +33,33 @@ func (usuario *Usuario) Preparar(etapa string) error {
 
 func (usuario *Usuario) validar(etapa string) error {
 	if etapa == "cadastro" {
-		if usuario.Nome == "" {
-			return errors.New("nome é obrigatorio")
-		}
-	
-		if usuario.Email == "" {
-			return errors.New("email é obrigatorio")
+		if usuario.Nome == "" || usuario.Email == "" || usuario.Senha == "" || 
+		usuario.Contato == "" {
+			return errors.New("esta faltando um ou mais dados obrigatórios para o cadastro (nome, email, senha ou contato)")
 		}
 	
 		if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
 			return errors.New("email no formato invalido")
 		}
-	
-		if usuario.Senha == "" {
-			return errors.New("senha é obrigatoria")
-		}
-	
-		if usuario.Contato == "" {
-			return errors.New("contato é obrigatorio")
-		}
 	} else if etapa == "atualizar" {
 		if usuario.Nome == "" && usuario.Email == "" && usuario.Contato == "" {
-			return errors.New("campos invalidos, você consegue atualizar um dos seguintes campos: nome, email ou contato")
+			return errors.New("campos inválidos, você consegue atualizar um dos seguintes campos: nome, email e/ou contato")
 		}
 
 		if usuario.Senha != "" {
 			return errors.New("ops, esse não é o lugar certo para atualizar sua senha")
 		}
 		
+		if usuario.Email != "" {
+			if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
+				return errors.New("email no formato invalido")
+			}
+		}
+	} else if etapa == "login" {
+		if usuario.Email == "" || usuario.Senha == "" {
+			return errors.New("campos obrigatórios para o login: email e senha")
+		}
+
 		if usuario.Email != "" {
 			if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
 				return errors.New("email no formato invalido")
@@ -113,6 +112,14 @@ func (usuario *Usuario) formatar(etapa string) error {
 		}
 
 		usuario.Senha = string(senhaHash)
+	}
+
+	return nil
+}
+
+func (usuario *Usuario) UsuarioCadastrado() error {
+	if usuario.ID == 0 {
+		return errors.New("email e/ou senha informado não encontrou um usuário válido")
 	}
 
 	return nil
