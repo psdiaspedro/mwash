@@ -6,9 +6,8 @@ import (
 
 /*
 	Rota principal para acesso à plataforma
-	- Possui apenas /login
-	- Não precisa de auth pois é a porta de entrada
-	- Chama a função Login
+	- Não precisa estar logado
+	- Todos os tipos de usuário estão liberados
 */
 var rotaLogin = Route {
 	URI:		"/login",

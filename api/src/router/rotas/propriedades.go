@@ -4,30 +4,35 @@ import (
 	"api/src/controllers"
 )
 
+/*
+	Rotas relacionadas às propriedades do cliente
+	- Precisa estar logado
+	- Todos os tipos de usuário estão liberados
+*/
 var rotasPropriedades = []Route {
 	{
-		//Busca Todas as Propriedades do Usuário
+		//Busca todas as propriedades do usuário logado
 		URI:		"/minhas_propriedades",
 		Metodo:		"GET",
 		Funcao:		controllers.ListarPropriedades,
 		RequerAuth:	true,
 	},
 	{
-		//Adiciona uma Propriedade
+		//Adiciona uma propriedade para o usuário logado
 		URI:		"/minhas_propriedades",
 		Metodo:		"POST",
 		Funcao:		controllers.AdicionarPropriedade,
 		RequerAuth:	true,
 	},
 	{
-		//Atualiza uma Propriedade do usuario
+		//Atualiza uma propriedade do usuário logado
 		URI:		"/minhas_propriedades/{propriedadeId}",
 		Metodo:		"PATCH",
 		Funcao:		controllers.AtualizarPropriedade,
 		RequerAuth:	true,
 	},
 	{
-		//Remove uma Propriedade do usuario
+		//Remove uma propriedade do usuário logado
 		URI:		"/minhas_propriedades/{propriedadeId}",
 		Metodo:		"DELETE",
 		Funcao:		controllers.RemoverPropriedade,

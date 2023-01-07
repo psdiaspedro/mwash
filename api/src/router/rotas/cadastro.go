@@ -7,13 +7,12 @@ import (
 
 /*
 	Rota de cadastro de usuários da plataforma
-	- Possuí apenas /cadastrar
-	- Precisa estar aut
-	- Chama a função CadastrarUsuao
+	- Precisa estar logado
+	- Apenas usuários ADMIN
 */
 var rotaCadastro = Route {
 	URI:		"/cadastrar",
 	Metodo:		"POST",
 	Funcao:		controllers.CadastrarUsuario,
-	RequerAuth:	false,
+	RequerAuth:	true,
 }

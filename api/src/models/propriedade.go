@@ -72,8 +72,8 @@ func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID
 	return query, valores
 }
 
-func (propriedade *Propriedade) Preparar() error {
-	if erro := propriedade.Validar(); erro != nil {
+func (propriedade *Propriedade) Preparar(etapa string) error {
+	if erro := propriedade.Validar(etapa); erro != nil {
 		return erro
 	}
 
@@ -81,9 +81,15 @@ func (propriedade *Propriedade) Preparar() error {
 	return nil
 }
 
-func (propriedade *Propriedade) Validar() error {
-	if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == "" {
-		return errors.New("Campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero ou complemento")
+func (propriedade *Propriedade) Validar(etapa string) error {
+	if etapa == "cadastrar" {
+		if propriedade.Cidade == "" || propriedade.Bairro == "" ||   propriedade.CEP == "" ||  propriedade.Logadouro == "" ||  propriedade.Numero == "" {
+			return errors.New("esta faltando um ou mais dados obrigatórios para o cadastro (cidade, bairro, CEP, logadouro ou número)")
+		}
+	} else if etapa == "atualizar" {
+		if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == "" {
+			return errors.New("Campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero ou complemento")
+		}
 	}
 
 	return nil
@@ -96,4 +102,12 @@ func (propriedade *Propriedade) formatar() {
 	propriedade.Logadouro = strings.TrimSpace(propriedade.Logadouro)
 	propriedade.Numero = strings.TrimSpace(propriedade.Numero)
 	propriedade.Complemento = strings.TrimSpace(propriedade.Complemento)
+}
+
+func (propriedade *Propriedade) PropriedadeCadastrada() error {
+	if propriedade.ID == 0 {
+		return errors.New("propriedade informada não encontrada")
+	}
+
+	return nil
 }

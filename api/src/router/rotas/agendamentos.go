@@ -4,9 +4,15 @@ import (
 	"api/src/controllers"
 )
 
+/*
+	Rotas relacionadas àos agendamentos do cliente
+	- Precisa estar logado
+	- Todos os tipos de usuário estão liberados
+	- Existe rotas de acesso do ADMIN e do Cliente
+*/
 var rotasAgendamentos = []Route {
 	{
-		//Busca Todos os Agendamentos do Usuario - 
+		//Busca Todos os Agendamentos do Usuario
 		URI:		"/agendamentos",
 		Metodo:		"GET",
 		Funcao:		controllers.BuscarAgendamentos,
