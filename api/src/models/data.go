@@ -111,7 +111,7 @@ func (data *Data) GerarQueryString(d Data) (string, []any) {
 		valores = append(valores, d.Ano)
 		valores = append(valores, d.Mes)
 	} else if d.Dia != "" && d.Mes != "" && d.Ano != "" {
-		query += "extract(year from dia_agendamento) = ? and extract(month from dia_agendamento) = ? and extract(day from dia_agendamento) = ? order by dia_agendamento asc"
+		query += "extract(year from dia_agendamento) = ? and extract(month from dia_agendamento) = ? and extract(day from dia_agendamento) = ? order by checkout asc"
 		valores = append(valores, d.Ano)
 		valores = append(valores, d.Mes)
 		valores = append(valores, d.Dia)

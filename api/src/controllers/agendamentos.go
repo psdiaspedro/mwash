@@ -143,7 +143,7 @@ func BuscarAgendamentosPropriedade(w http.ResponseWriter, r *http.Request) {
 		- Retorna algum status code negativo
 		- Retorna o erro de acordo com o problema
 */
-func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
+func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) { 
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -371,7 +371,7 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 
 	agendamento.PropriedadeID = propriedadeID
 
-	if erro = agendamento.Preparar(); erro != nil {
+	if erro = agendamento.Preparar("criando"); erro != nil {
 		respostas.JSONerror(w, http.StatusBadRequest, erro)
 		return
 	}
@@ -413,11 +413,9 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
 		- Recupera a o ID do usuário logado pelo token
 		- Recupera o ID do agendamento que ele quer atualizar pela URL
-		- Chama a função que busca o agendamento através da URL
-		- Chama a função qeu busca a propriedade atrelada ao agendamento atraves do ID
-		da propriedade que foi recuperada do agendamento encontrado
-		- 
-		- Lê a request com as informações do novo agendamento
+		- Chama a função que busca o cliente ID a partir do agendamento ID
+		- Verifica se o usuário logado é o dono do agendamento
+		- Lê a request com as informações da atualização
 			- Formato da data do campo "diaAgendamento"
 				- DD-MM-AAAA
 				- D-M-AA
@@ -428,14 +426,11 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 						- Apenas um valor ele entende 00:00:SS
 					- "check": "15:30"
 						- A partir de 2 valores ele ja entende HH:MM:00
-		- Caso ok, chama a função que busca a propriedade do agendamento baseada no ID da URL
-		- Verifica se a propriedade encontrada pertence ao usuário logado
-		- Caso ok, chama a função que cria um agendamento com os dados fornecidos
+		- Caso ok, chama a função que atualiza o agendamento baseado no ID da URL
 		- Retorna um caso de sucesso ou um caso de fracasso.
 
 	- Sucesso:
-		- status code 201
-		- ID do agendamento criado
+		- status code 204
 	- Fracasso:
 		- Retorna algum status code negativo
 		- Retorna o erro de acordo com o problema
@@ -471,22 +466,14 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	repo := repositorios.NovoRepoAgendamento(db)
-	dbAgendamento, erro := repo.BuscarAgendamentoPorId(agendamentoID)
+	clienteID, erro := repo.BuscarClientePorAgendamentoId(agendamentoID)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
 
-	repoPropriedade := repositorios.NovoRepoPropriedade(db)
-	dbPropriedade, erro := repoPropriedade.BuscarPropriedadePorId(dbAgendamento.PropriedadeID)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	}
-
-	//vai verificar se o usuarioID é o mesmo do dono da propriedade
-	if dbPropriedade.ProprietarioID != usuarioID {
-		respostas.JSONerror(w, http.StatusForbidden, errors.New("proibido atualizar um agendamento de outro usuário"))
+	if clienteID != usuarioID {
+		respostas.JSONerror(w, http.StatusForbidden, errors.New("você não tem permissão de atualizar um agendamento de outro usuário"))
 		return
 	}
 
@@ -502,7 +489,7 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if erro = agendamento.Preparar(); erro != nil {
+	if erro = agendamento.Preparar("atualizando"); erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
@@ -515,8 +502,46 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 	respostas.JSONresponse(w, http.StatusNoContent, nil)
 }
 
-//cliente remover agendamento
+/*
+	Função chamada pela rota DELETE /agendamentos/{agendamentoId}
+	- Rota de uso do cliente
+
+	O que faz:
+		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
+		- Recupera a o ID do usuário logado pelo token
+		- Recupera o ID do agendamento que ele quer deletar pela URL
+		- Chama a função que busca o cliente ID a partir do agendamento ID
+		- Verifica se o usuário logado é o dono do agendamento que será deletado
+		- Lê a request com as informações da atualização
+			- Formato da data do campo "diaAgendamento"
+				- DD-MM-AAAA
+				- D-M-AA
+				- A sequência IMPORTA
+			- Formato da hora do campo "checkout/checkin"
+				- HH:MM:SS
+					- "check": "15"
+						- Apenas um valor ele entende 00:00:SS
+					- "check": "15:30"
+						- A partir de 2 valores ele ja entende HH:MM:00
+		- Caso ok, chama a função que deleta o agendamento especificado na URL
+		- Retorna um caso de sucesso ou um caso de fracasso.
+
+	- Sucesso:
+		- status code 204
+	- Fracasso:
+		- Retorna algum status code negativo
+		- Retorna o erro de acordo com o problema
+*/
 func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	} else if isAdmin == true {
+		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
+		return
+	}
+	
 	usuarioID, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -538,23 +563,14 @@ func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	repo := repositorios.NovoRepoAgendamento(db)
-	dbAgendamento, erro := repo.BuscarAgendamentoPorId(agendamentoID)
+	clienteID, erro := repo.BuscarClientePorAgendamentoId(agendamentoID)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
 
-	//vai buscar a propriedade relacionada ao agendamento
-	repoPropriedade := repositorios.NovoRepoPropriedade(db)
-	dbPropriedade, erro := repoPropriedade.BuscarPropriedadePorId(dbAgendamento.PropriedadeID)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	}
-
-	//vai verificar se o usuarioID é o mesmo do dono da propriedade
-	if dbPropriedade.ProprietarioID != usuarioID {
-		respostas.JSONerror(w, http.StatusForbidden, errors.New("proibido remover uma agendamento de outro usuário"))
+	if clienteID != usuarioID {
+		respostas.JSONerror(w, http.StatusForbidden, errors.New("você não tem permissão de remover um agendamento de outro usuário"))
 		return
 	}
 

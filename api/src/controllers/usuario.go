@@ -8,11 +8,38 @@ import (
 	"api/src/respostas"
 	"api/src/seguranca"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 )
 
+/*
+	Função chamada pela rota GET /usuario
+	- Rota de uso do cliente
+
+	O que faz:
+		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
+		- Recupera a o ID do usuário logado pelo token
+		- Caso ok, chama a função que busca as informações do usuário logado
+		- Retorna um caso de sucesso ou um caso de fracasso
+
+	- Sucesso:
+		- status code 200
+		- Informações do usuário
+	- Fracasso:
+		- Retorna algum status code negativo
+		- Retorna o erro de acordo com o problema
+*/
 func BuscarDadosUsuario(w http.ResponseWriter, r *http.Request) {
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	} else if isAdmin == true {
+		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
+		return
+	}
+
 	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -36,7 +63,34 @@ func BuscarDadosUsuario(w http.ResponseWriter, r *http.Request) {
 	respostas.JSONresponse(w, http.StatusOK, usuario)
 }
 
+/*
+	Função chamada pela rota PATCH /usuario/atualizar_dados
+	- Rota de uso do cliente
+
+	O que faz:
+		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
+		- Recupera a o ID do usuário logado pelo token
+		- Lê a request com os dados de atualização
+		- Faz validações com os dados lidos
+		- Caso ok, chama a função que atualiza as informações do usuário logado
+		- Retorna um caso de sucesso ou um caso de fracasso
+
+	- Sucesso:
+		- status code 204
+	- Fracasso:
+		- Retorna algum status code negativo
+		- Retorna o erro de acordo com o problema
+*/
 func AtualizarUsuario(w http.ResponseWriter, r *http.Request) {
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	} else if isAdmin == true {
+		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
+		return
+	}
+	
 	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -76,7 +130,37 @@ func AtualizarUsuario(w http.ResponseWriter, r *http.Request) {
 	respostas.JSONresponse(w, http.StatusNoContent, nil)
 }
 
+/*
+	Função chamada pela rota PATCH /usuario/senha
+	- Rota de uso do cliente
+
+	O que faz:
+		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
+		- Recupera a o ID do usuário logado pelo token
+		- Lê a request com os dados de atualização da senha
+		- Faz validações com os dados lidos
+		- Caso ok, chama a função que busca a senha atual do usuário logado no database
+		- Verifica se a senha informada bate com a do database
+		- Transforma a senha string em um hash
+		- Caso ok, chama a função que atualiza a senha do usuário logado
+		- Retorna um caso de sucesso ou um caso de fracasso
+
+	- Sucesso:
+		- status code 204
+	- Fracasso:
+		- Retorna algum status code negativo
+		- Retorna o erro de acordo com o problema
+*/
 func AtualizarSenha(w http.ResponseWriter, r *http.Request) {
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	} else if isAdmin == true {
+		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
+		return
+	}
+	
 	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -131,4 +215,4 @@ func AtualizarSenha(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respostas.JSONresponse(w, http.StatusNoContent, nil)
-}
+} 

@@ -15,8 +15,8 @@ type Agendamento struct {
 	Obs				string	`json:"obs,omitempty"`
 }
 
-func (agendamento *Agendamento) Preparar() error {
-	if erro := agendamento.Validar(); erro != nil {
+func (agendamento *Agendamento) Preparar(etapa string) error {
+	if erro := agendamento.Validar(etapa); erro != nil {
 		return erro
 	}
 
@@ -24,9 +24,15 @@ func (agendamento *Agendamento) Preparar() error {
 	return nil
 }
 
-func (agendamento *Agendamento) Validar() error {
-	if agendamento.DiaAgendamento == "" || agendamento.Checkout == "" {
-		return errors.New("esta faltando um ou mais dados obrigatórios para o agendamento: dia do agendamento e/ou checkout")
+func (agendamento *Agendamento) Validar(etapa string) error {
+	if etapa == "criando" {
+		if agendamento.DiaAgendamento == "" || agendamento.Checkout == "" {
+			return errors.New("esta faltando um ou mais dados obrigatórios para o agendamento: dia do agendamento e/ou checkout")
+		}
+	} else if etapa == "atualizando" {
+		if agendamento.DiaAgendamento == "" && agendamento.Checkin == "" && agendamento.Checkout == "" && agendamento.Obs == "" {
+			return errors.New("campos inválidos, você consegue atualizar um dos seguintes campos: data, checkin, checkout e/ou obs")
+		}
 	}
 
 	return nil
@@ -44,7 +50,7 @@ func (agendamento *Agendamento) GerarQueryString(agen Agendamento, agendamentoID
 	var valores []any
 
 	if agendamento.DiaAgendamento != "" {
-		query += " dia_agendamento = ?"
+		query += " dia_agendamento = STR_TO_DATE(?, '%d-%m-%Y')"
 		valores = append(valores, agen.DiaAgendamento)
 	}
 

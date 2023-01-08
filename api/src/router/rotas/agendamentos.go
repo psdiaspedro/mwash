@@ -48,14 +48,12 @@ var rotasAgendamentos = []Route {
 		RequerAuth:	true,
 	},
 	{
-		// Cliente - Atualiza um Agendamento especifico
 		URI:		"/agendamentos/{agendamentoId}",
 		Metodo:		"PATCH", 
 		Funcao:		controllers.AtualizarAgendamento,
 		RequerAuth:	true, 
 	},
 	{
-		// Cliente - Remove um Agendamento
 		URI:		"/agendamentos/{agendamentoId}",
 		Metodo:		"DELETE",  
 		Funcao:		controllers.RemoverAgendamento,
