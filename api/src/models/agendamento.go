@@ -26,7 +26,7 @@ func (agendamento *Agendamento) Preparar() error {
 
 func (agendamento *Agendamento) Validar() error {
 	if agendamento.DiaAgendamento == "" || agendamento.Checkout == "" {
-		return errors.New("campos obrigatórios: dia do agendamento e checkout")
+		return errors.New("esta faltando um ou mais dados obrigatórios para o agendamento: dia do agendamento e/ou checkout")
 	}
 
 	return nil

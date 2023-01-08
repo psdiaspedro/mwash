@@ -130,7 +130,8 @@ func ListarPropriedades(w http.ResponseWriter, r *http.Request) {
 		- Retorna um caso de sucesso ou um caso de fracasso.
 
 	- Sucesso:
-		- status code 204
+		- Status code 204
+		- Lista com as propriedades do usuário logado
 	- Fracasso:
 		- Retorna algum status code negativo
 		- Retorna o erro de acordo com o problema

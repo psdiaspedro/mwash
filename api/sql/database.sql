@@ -10,7 +10,7 @@ CREATE TABLE usuarios(
     nome varchar(50) not null,
     email varchar(50) not null unique,
     senha varchar(100) not null,
-    contato varchar(20) not null,
+    contato varchar(50) not null,
     admin boolean not null
 ) ENGINE=INNODB;
 
@@ -25,7 +25,7 @@ CREATE TABLE propriedades(
     CEP varchar(15) not null,
     logadouro varchar(50) not null,
     numero varchar(10) not null,
-    complemento varchar(10)
+    complemento varchar(100)
 ) ENGINE=INNODB;  
 
 CREATE TABLE agendamentos(
@@ -35,7 +35,7 @@ CREATE TABLE agendamentos(
     REFERENCES propriedades(id)
     ON DELETE CASCADE,
     dia_agendamento DATE not null,
-    checkin TIME,
-    checkout TIME not null,
+    checkin TIME (0),
+    checkout TIME (0) not null,
     observacoes varchar(100)
 ) ENGINE=INNODB;

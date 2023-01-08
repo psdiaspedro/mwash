@@ -61,6 +61,7 @@ func (usuario *Usuario) validar(etapa string) error {
 		}
 
 		if usuario.Email != "" {
+			usuario.Email = strings.TrimSpace(usuario.Email)
 			if erro := checkmail.ValidateFormat(usuario.Email); erro != nil {
 				return errors.New("email no formato invalido")
 			}
