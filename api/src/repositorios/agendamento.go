@@ -94,36 +94,6 @@ func (repo Agendamento) BuscarAgendamentosPropriedade(propriedadeID uint64) ([]m
 	return agendamentos, nil
 }
 
-func (repo Agendamento)  BuscarAgendamentosPorData(data models.Data) ([]models.Agendamento, error) {
-	query, valores := data.GerarQueryString(data)
-	linhas, erro := repo.db.Query(query, valores...)
-	if erro != nil {
-		return nil, erro
-	}
-	defer linhas.Close()
-
-	var agendamentos []models.Agendamento
-
-	for linhas.Next() {
-		var agendamento models.Agendamento
-
-		if erro = linhas.Scan(
-			&agendamento.ID,
-			&agendamento.PropriedadeID,
-			&agendamento.DiaAgendamento,
-			&agendamento.Checkin,
-			&agendamento.Checkout,
-			&agendamento.Obs,
-		); erro != nil {
-			return nil, erro
-		}
-
-		agendamentos = append(agendamentos, agendamento)
-	}
-	
-	return agendamentos, nil
-}
-
 func (repo Agendamento) BuscarAgendamentosPorDataLogado(data models.Data, usuarioId uint64) ([]models.Agendamento, error) {
 	query, valores := data.GerarQueryStringUsuarioId(data, usuarioId)
 	linhas, erro := repo.db.Query(query, valores...)
@@ -150,7 +120,7 @@ func (repo Agendamento) BuscarAgendamentosPorDataLogado(data models.Data, usuari
 
 		agendamentos = append(agendamentos, agendamento)
 	}
-	
+
 	return agendamentos, nil
 }
 

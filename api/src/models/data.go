@@ -8,44 +8,44 @@ import (
 )
 
 type Data struct {
-	Dia		string
-	Mes		string
-	Ano		string
-	Datadb	string
+	Dia    string
+	Mes    string
+	Ano    string
+	Datadb string
 }
 
-func (data *Data) VerificaData(dataString string) (Data, error){
+func (data *Data) VerificaData(dataString string) (Data, error) {
 	quantidadeHifen := strings.Count(dataString, "-")
 	dataFormatada := data.formataData(dataString)
 	dataRaw := strings.Trim(dataString, "-")
 	dataRaw = strings.TrimSpace(dataRaw)
-	
+
 	switch quantidadeHifen {
-		case 0:
-			d, erro := data.parseAno(dataFormatada, dataRaw)
-			if erro != nil {
-				return d, erro
-			}
-			return d, nil
-		case 1:
-			d, erro := data.parseAnoMes(dataFormatada, dataRaw)
-			if erro != nil {
-				return d, erro
-			}
-			return d, nil
-		case 2:
-			d, erro := data.parseAnoMesDia(dataFormatada, dataRaw)
-			if erro != nil {
-				return d, erro
-			}
-			return d, nil
-		default:
-			var d Data
-			d.Dia = ""
-			d.Mes = ""
-			d.Ano = ""
-			d.Datadb = ""
-			return d, errors.New("formato de data inválido, formato esperado: AAAA-MM-DD")
+	case 0:
+		d, erro := data.parseAno(dataFormatada, dataRaw)
+		if erro != nil {
+			return d, erro
+		}
+		return d, nil
+	case 1:
+		d, erro := data.parseAnoMes(dataFormatada, dataRaw)
+		if erro != nil {
+			return d, erro
+		}
+		return d, nil
+	case 2:
+		d, erro := data.parseAnoMesDia(dataFormatada, dataRaw)
+		if erro != nil {
+			return d, erro
+		}
+		return d, nil
+	default:
+		var d Data
+		d.Dia = ""
+		d.Mes = ""
+		d.Ano = ""
+		d.Datadb = ""
+		return d, errors.New("formato de data inválido, formato esperado: AAAA-MM-DD")
 	}
 }
 
@@ -58,7 +58,7 @@ func (data *Data) formataData(dataString string) string {
 
 func (data *Data) parseAno(dataFormatada string, dataRaw string) (Data, error) {
 	var d Data
-	
+
 	dataParsed, erro := time.Parse("2006", dataFormatada)
 	if erro != nil {
 		return d, errors.New("formato de data inválido, formato esperado: AAAA-MM-DD")
@@ -72,7 +72,7 @@ func (data *Data) parseAno(dataFormatada string, dataRaw string) (Data, error) {
 
 func (data *Data) parseAnoMes(dataFormatada string, dataRaw string) (Data, error) {
 	var d Data
-	
+
 	dataParsed, erro := time.Parse("2006/01", dataFormatada)
 	if erro != nil {
 		return d, errors.New("formato de data inválido, formato esperado: AAAA-MM-DD")
@@ -86,7 +86,7 @@ func (data *Data) parseAnoMes(dataFormatada string, dataRaw string) (Data, error
 
 func (data *Data) parseAnoMesDia(dataFormatada string, dataRaw string) (Data, error) {
 	var d Data
-	
+
 	dataParsed, erro := time.Parse("2006/01/02", dataFormatada)
 	if erro != nil {
 		return d, errors.New("formato de data inválido, formato esperado: AAAA-MM-DD")
@@ -99,7 +99,7 @@ func (data *Data) parseAnoMesDia(dataFormatada string, dataRaw string) (Data, er
 }
 
 func (data *Data) GerarQueryString(d Data) (string, []any) {
-	query := "select * from agendamentos where "
+	query := "select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, u.nome, u.email from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where "
 
 	var valores []any
 

@@ -16,21 +16,22 @@ import (
 )
 
 /*
-	Função chamada pela rota GET /agendamentos
-	- Rota de uso do cliente
+Função chamada pela rota GET /agendamentos
+- Rota de uso do cliente
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se for, impede o acesso
-		- Recupera o ID do usário logado através do token
-		- Chama a função que busca todos os agendamentos do usuário logado
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se for, impede o acesso
+  - Recupera o ID do usário logado através do token
+  - Chama a função que busca todos os agendamentos do usuário logado
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 204
-		- lista de agendamentos do usuário logado
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 204
+  - lista de agendamentos do usuário logado
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func BuscarAgendamentos(w http.ResponseWriter, r *http.Request) {
 	isAdmin, erro := auth.IsAdmin(r)
@@ -68,23 +69,25 @@ func BuscarAgendamentos(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	Função chamada pela rota GET /agendamentos/propriedades/{propriedadeId}
-	- Rota de uso do ADM
+Função chamada pela rota GET /agendamentos/propriedades/{propriedadeId}
+- Rota de uso do ADM
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se não for, bloqueia o acesso
-		- Recupera o ID da propriedade que esta na URL
-		- Chama a função que busca todos os agendamentos de uma propriedade baseado no ID recuperado
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se não for, bloqueia o acesso
+  - Recupera o ID da propriedade que esta na URL
+  - Chama a função que busca todos os agendamentos de uma propriedade baseado no ID recuperado
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 200
-		- lista de agendamentos da propriedade
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 200
+  - lista de agendamentos da propriedade
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func BuscarAgendamentosPropriedade(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -93,14 +96,14 @@ func BuscarAgendamentosPropriedade(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("você não tem permissão para realizar essa ação"))
 		return
 	}
-	
+
 	parametros := mux.Vars(r)
 	propriedadeID, erro := strconv.ParseUint(parametros["propriedadeId"], 10, 64)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-	
+
 	db, erro := database.ConectarBancoDeDados()
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -121,29 +124,31 @@ func BuscarAgendamentosPropriedade(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	Função chamada pela rota GET /agendamentos/{data}
-	- Rota de uso do ADM
+Função chamada pela rota GET /agendamentos/{data}
+- Rota de uso do ADM
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se não for, bloqueia o acesso
-		- Recupera a data desejada que esta na URL
-			- Data formato: AAAA-MM-DD
-			- Formatos aceitos:
-				- /agendamento/ano
-				- /agendamento/ano-mes
-				- /agendamento/ano-mes-dia
-		- Verifica se o formato da data esta correto
-		- Caso ok, chama a função que busca todos os agendamentos baseado no período especificado pela data
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se não for, bloqueia o acesso
+  - Recupera a data desejada que esta na URL
+  - Data formato: AAAA-MM-DD
+  - Formatos aceitos:
+  - /agendamento/ano
+  - /agendamento/ano-mes
+  - /agendamento/ano-mes-dia
+  - Verifica se o formato da data esta correto
+  - Caso ok, chama a função que busca todos os agendamentos baseado no período especificado pela data
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 200
-		- lista de agendamentos do período
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 200
+  - lista de agendamentos do período
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
-func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) { 
+func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -155,7 +160,7 @@ func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
 
 	parametros := mux.Vars(r)
 	dataParametro := parametros["data"]
-	
+
 	db, erro := database.ConectarBancoDeDados()
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -164,49 +169,57 @@ func BuscarAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	var data models.Data
-	
+
 	data, erro = data.VerificaData(dataParametro)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
 
-	var agendamentos []models.Agendamento
+	var calendario []models.Calendario
 
-	repo := repositorios.NovoRepoAgendamento(db)
-	agendamentos, erro = repo.BuscarAgendamentosPorData(data)
+	repo := repositorios.NovoRepoCalendario(db)
+	calendario, erro = repo.BuscarAgendamentosPorData(data)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-	respostas.JSONresponse(w, http.StatusOK, agendamentos)
+
+	if calendario == nil {
+		respostas.JSONresponse(w, http.StatusNoContent, nil)
+		return
+	}
+
+	respostas.JSONresponse(w, http.StatusOK, calendario)
 }
 
 /*
-	Função chamada pela rota GET /agendamentos/usuario/{data}
-	- Rota de uso do cliente
+Função chamada pela rota GET /agendamentos/usuario/{data}
+- Rota de uso do cliente
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
-		- Recupera o ID do usuário através do token
-		- Recupera a data desejada que esta na URL
-			- Data formato: AAAA-MM-DD
-			- Formatos aceitos:
-				- /agendamento/ano
-				- /agendamento/ano-mes
-				- /agendamento/ano-mes-dia
-		- Verifica se o formato da data esta correto
-		- Caso ok, chama a função que busca todos os agendamentos do usuário logado baseado no período especificado pela data
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se for, bloqueia o acesso
+  - Recupera o ID do usuário através do token
+  - Recupera a data desejada que esta na URL
+  - Data formato: AAAA-MM-DD
+  - Formatos aceitos:
+  - /agendamento/ano
+  - /agendamento/ano-mes
+  - /agendamento/ano-mes-dia
+  - Verifica se o formato da data esta correto
+  - Caso ok, chama a função que busca todos os agendamentos do usuário logado baseado no período especificado pela data
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 200
-		- lista de agendamentos do período
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 200
+  - lista de agendamentos do período
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -221,10 +234,10 @@ func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
 		return
 	}
-	
+
 	parametros := mux.Vars(r)
 	dataParametro := parametros["data"]
-	
+
 	db, erro := database.ConectarBancoDeDados()
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -233,7 +246,7 @@ func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	var data models.Data
-	
+
 	data, erro = data.VerificaData(dataParametro)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -252,23 +265,25 @@ func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	Função chamada pela rota GET /agendamentos/adm/{usuarioId}
-	- Rota de uso do ADM
+Função chamada pela rota GET /agendamentos/adm/{usuarioId}
+- Rota de uso do ADM
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se não for, bloqueia o acesso
-		- Recupera a o ID do usuário desejado que esta na URL
-		- Caso ok, chama a função que busca todos os agendamentos do usuário através do ID recuperado
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se não for, bloqueia o acesso
+  - Recupera a o ID do usuário desejado que esta na URL
+  - Caso ok, chama a função que busca todos os agendamentos do usuário através do ID recuperado
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 200
-		- lista de agendamentos do usuário
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 200
+  - lista de agendamentos do usuário
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func BuscarAgendamentosUsuarioId(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -277,14 +292,14 @@ func BuscarAgendamentosUsuarioId(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("você não tem permissão para realizar essa ação"))
 		return
 	}
-	
+
 	parametros := mux.Vars(r)
 	usuarioId, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-	
+
 	db, erro := database.ConectarBancoDeDados()
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -304,37 +319,39 @@ func BuscarAgendamentosUsuarioId(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	Função chamada pela rota POST /agendamentos/propriedades/{propriedadeId}
-	- Rota de uso do cliente
+Função chamada pela rota POST /agendamentos/propriedades/{propriedadeId}
+- Rota de uso do cliente
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
-		- Recupera a o ID do usuário logado pelo token
-		- Recupera o ID da propriedade desejada pela URL
-		- Lê a request com as informações do novo agendamento
-			- Formato da data do campo "diaAgendamento"
-				- DD-MM-AAAA
-				- D-M-AA
-				- A sequência IMPORTA
-			- Formato da hora do campo "checkout/checkin"
-				- HH:MM:SS
-					- "check": "15"
-						- Apenas um valor ele entende 00:00:SS
-					- "check": "15:30"
-						- A partir de 2 valores ele ja entende HH:MM:00
-		- Caso ok, chama a função que busca a propriedade do agendamento baseada no ID da URL
-		- Verifica se a propriedade encontrada pertence ao usuário logado
-		- Caso ok, chama a função que cria um agendamento com os dados fornecidos
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se for, bloqueia o acesso
+  - Recupera a o ID do usuário logado pelo token
+  - Recupera o ID da propriedade desejada pela URL
+  - Lê a request com as informações do novo agendamento
+  - Formato da data do campo "diaAgendamento"
+  - DD-MM-AAAA
+  - D-M-AA
+  - A sequência IMPORTA
+  - Formato da hora do campo "checkout/checkin"
+  - HH:MM:SS
+  - "check": "15"
+  - Apenas um valor ele entende 00:00:SS
+  - "check": "15:30"
+  - A partir de 2 valores ele ja entende HH:MM:00
+  - Caso ok, chama a função que busca a propriedade do agendamento baseada no ID da URL
+  - Verifica se a propriedade encontrada pertence ao usuário logado
+  - Caso ok, chama a função que cria um agendamento com os dados fornecidos
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 201
-		- ID do agendamento criado
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 201
+  - ID do agendamento criado
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -343,20 +360,20 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
 		return
 	}
-	
+
 	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
 		return
 	}
-	
+
 	parametros := mux.Vars(r)
 	propriedadeID, erro := strconv.ParseUint(parametros["propriedadeId"], 10, 64)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-	
+
 	corpoRequest, erro := ioutil.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
@@ -396,7 +413,7 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repoAgendamento := repositorios.NovoRepoAgendamento(db)
-	agendamento.ID, erro = repoAgendamento.CriarAgendamento(agendamento) 
+	agendamento.ID, erro = repoAgendamento.CriarAgendamento(agendamento)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
@@ -406,36 +423,38 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	Função chamada pela rota PATCH /agendamentos/{agendamentoId}
-	- Rota de uso do cliente
+Função chamada pela rota PATCH /agendamentos/{agendamentoId}
+- Rota de uso do cliente
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
-		- Recupera a o ID do usuário logado pelo token
-		- Recupera o ID do agendamento que ele quer atualizar pela URL
-		- Chama a função que busca o cliente ID a partir do agendamento ID
-		- Verifica se o usuário logado é o dono do agendamento
-		- Lê a request com as informações da atualização
-			- Formato da data do campo "diaAgendamento"
-				- DD-MM-AAAA
-				- D-M-AA
-				- A sequência IMPORTA
-			- Formato da hora do campo "checkout/checkin"
-				- HH:MM:SS
-					- "check": "15"
-						- Apenas um valor ele entende 00:00:SS
-					- "check": "15:30"
-						- A partir de 2 valores ele ja entende HH:MM:00
-		- Caso ok, chama a função que atualiza o agendamento baseado no ID da URL
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se for, bloqueia o acesso
+  - Recupera a o ID do usuário logado pelo token
+  - Recupera o ID do agendamento que ele quer atualizar pela URL
+  - Chama a função que busca o cliente ID a partir do agendamento ID
+  - Verifica se o usuário logado é o dono do agendamento
+  - Lê a request com as informações da atualização
+  - Formato da data do campo "diaAgendamento"
+  - DD-MM-AAAA
+  - D-M-AA
+  - A sequência IMPORTA
+  - Formato da hora do campo "checkout/checkin"
+  - HH:MM:SS
+  - "check": "15"
+  - Apenas um valor ele entende 00:00:SS
+  - "check": "15:30"
+  - A partir de 2 valores ele ja entende HH:MM:00
+  - Caso ok, chama a função que atualiza o agendamento baseado no ID da URL
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 204
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 204
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -444,7 +463,7 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
 		return
 	}
-	
+
 	usuarioID, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -503,36 +522,38 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	Função chamada pela rota DELETE /agendamentos/{agendamentoId}
-	- Rota de uso do cliente
+Função chamada pela rota DELETE /agendamentos/{agendamentoId}
+- Rota de uso do cliente
 
-	O que faz:
-		- Verifica se o usuário logado é admin, se for, bloqueia o acesso
-		- Recupera a o ID do usuário logado pelo token
-		- Recupera o ID do agendamento que ele quer deletar pela URL
-		- Chama a função que busca o cliente ID a partir do agendamento ID
-		- Verifica se o usuário logado é o dono do agendamento que será deletado
-		- Lê a request com as informações da atualização
-			- Formato da data do campo "diaAgendamento"
-				- DD-MM-AAAA
-				- D-M-AA
-				- A sequência IMPORTA
-			- Formato da hora do campo "checkout/checkin"
-				- HH:MM:SS
-					- "check": "15"
-						- Apenas um valor ele entende 00:00:SS
-					- "check": "15:30"
-						- A partir de 2 valores ele ja entende HH:MM:00
-		- Caso ok, chama a função que deleta o agendamento especificado na URL
-		- Retorna um caso de sucesso ou um caso de fracasso.
+O que faz:
+  - Verifica se o usuário logado é admin, se for, bloqueia o acesso
+  - Recupera a o ID do usuário logado pelo token
+  - Recupera o ID do agendamento que ele quer deletar pela URL
+  - Chama a função que busca o cliente ID a partir do agendamento ID
+  - Verifica se o usuário logado é o dono do agendamento que será deletado
+  - Lê a request com as informações da atualização
+  - Formato da data do campo "diaAgendamento"
+  - DD-MM-AAAA
+  - D-M-AA
+  - A sequência IMPORTA
+  - Formato da hora do campo "checkout/checkin"
+  - HH:MM:SS
+  - "check": "15"
+  - Apenas um valor ele entende 00:00:SS
+  - "check": "15:30"
+  - A partir de 2 valores ele ja entende HH:MM:00
+  - Caso ok, chama a função que deleta o agendamento especificado na URL
+  - Retorna um caso de sucesso ou um caso de fracasso.
 
-	- Sucesso:
-		- status code 204
-	- Fracasso:
-		- Retorna algum status code negativo
-		- Retorna o erro de acordo com o problema
+- Sucesso:
+  - status code 204
+
+- Fracasso:
+  - Retorna algum status code negativo
+  - Retorna o erro de acordo com o problema
 */
 func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
+
 	isAdmin, erro := auth.IsAdmin(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -541,7 +562,7 @@ func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
 		return
 	}
-	
+
 	usuarioID, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)

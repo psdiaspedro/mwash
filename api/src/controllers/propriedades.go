@@ -32,6 +32,7 @@ import (
 		- Retorna o erro de acordo com o problema
 */
 func AdicionarPropriedade(w http.ResponseWriter, r *http.Request) {
+
 	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -91,6 +92,7 @@ func AdicionarPropriedade(w http.ResponseWriter, r *http.Request) {
 		- Retorna o erro de acordo com o problema
 */
 func ListarPropriedades(w http.ResponseWriter, r *http.Request) {
+
 	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -137,6 +139,7 @@ func ListarPropriedades(w http.ResponseWriter, r *http.Request) {
 		- Retorna o erro de acordo com o problema
 */
 func AtualizarPropriedade(w http.ResponseWriter, r *http.Request) {
+
 	usuarioID, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)
@@ -219,6 +222,7 @@ func AtualizarPropriedade(w http.ResponseWriter, r *http.Request) {
 		- Retorna o erro de acordo com o problema
 */
 func RemoverPropriedade(w http.ResponseWriter, r *http.Request) {
+
 	usuarioID, erro := auth.PegaUsuarioIDToken(r)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnauthorized, erro)

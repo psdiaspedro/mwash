@@ -8,10 +8,10 @@ import (
 )
 
 type Route struct {
-	URI			string
-	Metodo		string
-	Funcao		func(w http.ResponseWriter, r *http.Request)
-	RequerAuth	bool
+	URI        string
+	Metodo     string
+	Funcao     func(w http.ResponseWriter, r *http.Request)
+	RequerAuth bool
 }
 
 func ConfigurarRotas(r *mux.Router) *mux.Router {
@@ -21,6 +21,7 @@ func ConfigurarRotas(r *mux.Router) *mux.Router {
 	rotas = append(rotas, rotaLogin)
 	rotas = append(rotas, rotaCadastro)
 	rotas = append(rotas, rotasAgendamentos...)
+	rotas = append(rotas, rotaAuth)
 
 	for _, rota := range rotas {
 
@@ -32,4 +33,3 @@ func ConfigurarRotas(r *mux.Router) *mux.Router {
 	}
 	return r
 }
-

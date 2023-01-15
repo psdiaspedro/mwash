@@ -32,7 +32,7 @@ import (
 		- Retorna o erro de acordo com o problema
 */
 func CadastrarUsuario(w http.ResponseWriter, r *http.Request) {
-	
+
 	corpoRequest, erro := ioutil.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
