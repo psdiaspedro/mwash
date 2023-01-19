@@ -9,7 +9,7 @@ import (
 	"api/src/seguranca"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -37,7 +37,7 @@ func BuscarDadosUsuario(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
-	} else if isAdmin == true {
+	} else if isAdmin {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
 		return
 	}
@@ -90,7 +90,7 @@ func AtualizarUsuario(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
-	} else if isAdmin == true {
+	} else if isAdmin {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
 		return
 	}
@@ -101,7 +101,7 @@ func AtualizarUsuario(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	corpoRequest, erro := ioutil.ReadAll(r.Body)
+	corpoRequest, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return
@@ -162,7 +162,7 @@ func AtualizarSenha(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
-	} else if isAdmin == true {
+	} else if isAdmin {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
 		return
 	}
@@ -173,7 +173,7 @@ func AtualizarSenha(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	corpoRequest, erro := ioutil.ReadAll(r.Body)
+	corpoRequest, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return

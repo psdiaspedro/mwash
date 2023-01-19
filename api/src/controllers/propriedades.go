@@ -8,7 +8,7 @@ import (
 	"api/src/respostas"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -39,7 +39,7 @@ func AdicionarPropriedade(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	corpoRequest, erro := ioutil.ReadAll(r.Body)
+	corpoRequest, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return
@@ -177,7 +177,7 @@ func AtualizarPropriedade(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	corpoRequest, erro := ioutil.ReadAll(r.Body)
+	corpoRequest, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return

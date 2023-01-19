@@ -8,7 +8,7 @@ import (
 	"api/src/respostas"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -33,7 +33,7 @@ import (
 */
 func CadastrarUsuario(w http.ResponseWriter, r *http.Request) {
 
-	corpoRequest, erro := ioutil.ReadAll(r.Body)
+	corpoRequest, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return
@@ -43,7 +43,7 @@ func CadastrarUsuario(w http.ResponseWriter, r *http.Request) {
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
-	} else if isAdmin == false {
+	} else if !isAdmin {
 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("você não tem permissão para realizar essa ação"))
 		return
 	}

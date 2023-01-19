@@ -8,8 +8,7 @@ import (
 	"api/src/respostas"
 	"api/src/seguranca"
 	"encoding/json"
-
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -28,13 +27,13 @@ import (
 				- Exp - 12h
 				- ID do usuário
 				- Informação se é admin ou não (boolean)
-	- Fracasso: 
+	- Fracasso:
 		- Retorna algum status code negativo
 		- Retorna o erro de acordo com o problema
 */
 func Login(w http.ResponseWriter, r *http.Request) {
 
-	corpoRequest, erro := ioutil.ReadAll(r.Body)
+	corpoRequest, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return

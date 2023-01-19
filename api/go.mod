@@ -9,7 +9,7 @@ require (
 
 require (
 	github.com/badoux/checkmail v1.2.1
-	golang.org/x/crypto v0.4.0
+	golang.org/x/crypto v0.5.0
 )
 
 require (
@@ -18,4 +18,4 @@ require (
 	github.com/gorilla/handlers v1.5.1
 )
 
-require github.com/felixge/httpsnoop v1.0.1 // indirect
+require github.com/felixge/httpsnoop v1.0.3 // indirect
