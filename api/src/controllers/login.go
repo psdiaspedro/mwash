@@ -8,7 +8,7 @@ import (
 	"api/src/respostas"
 	"api/src/seguranca"
 	"encoding/json"
-	"fmt"
+
 	"io/ioutil"
 	"net/http"
 )
@@ -53,7 +53,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	db, erro := database.ConectarBancoDeDados()
 	if erro != nil {
-		fmt.Println(erro)
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}

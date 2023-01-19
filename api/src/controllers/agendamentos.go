@@ -56,9 +56,9 @@ func BuscarAgendamentos(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	var agendamentos []models.Agendamento
+	var agendamentos []models.Calendario
 
-	repo := repositorios.NovoRepoAgendamento(db)
+	repo := repositorios.NovoRepoCalendario(db)
 	agendamentos, erro = repo.BuscarAgendamentosDoUsuario(usuarioIdToken)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -307,9 +307,9 @@ func BuscarAgendamentosUsuarioId(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	var agendamentos []models.Agendamento
+	var agendamentos []models.Calendario
 
-	repo := repositorios.NovoRepoAgendamento(db)
+	repo := repositorios.NovoRepoCalendario(db)
 	agendamentos, erro = repo.BuscarAgendamentosDoUsuario(usuarioId)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -352,21 +352,6 @@ O que faz:
 */
 func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 
-	isAdmin, erro := auth.IsAdmin(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	} else if isAdmin == true {
-		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
-		return
-	}
-
-	usuarioIdToken, erro := auth.PegaUsuarioIDToken(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusUnauthorized, erro)
-		return
-	}
-
 	parametros := mux.Vars(r)
 	propriedadeID, erro := strconv.ParseUint(parametros["propriedadeId"], 10, 64)
 	if erro != nil {
@@ -407,10 +392,21 @@ func AdicionarAgendamento(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if dbPropriedade.ProprietarioID != usuarioIdToken {
-		respostas.JSONerror(w, http.StatusForbidden, errors.New("proibido criar agendamento para uma propriedade que não é a sua"))
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
-	}
+	} else if !isAdmin {
+		usuarioId, erro := auth.PegaUsuarioIDToken(r)
+		if erro != nil {
+			respostas.JSONerror(w, http.StatusUnauthorized, erro)
+			return
+		}
+		if dbPropriedade.ProprietarioID != usuarioId {
+			respostas.JSONerror(w, http.StatusForbidden, errors.New("proibido criar agendamento para uma propriedade que não é a sua"))
+			return
+		}
+	} 
 
 	repoAgendamento := repositorios.NovoRepoAgendamento(db)
 	agendamento.ID, erro = repoAgendamento.CriarAgendamento(agendamento)
@@ -455,21 +451,6 @@ O que faz:
 */
 func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 
-	isAdmin, erro := auth.IsAdmin(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	} else if isAdmin == true {
-		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
-		return
-	}
-
-	usuarioID, erro := auth.PegaUsuarioIDToken(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusUnauthorized, erro)
-		return
-	}
-
 	parametros := mux.Vars(r)
 	agendamentoID, erro := strconv.ParseUint(parametros["agendamentoId"], 10, 64)
 	if erro != nil {
@@ -491,9 +472,20 @@ func AtualizarAgendamento(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if clienteID != usuarioID {
-		respostas.JSONerror(w, http.StatusForbidden, errors.New("você não tem permissão de atualizar um agendamento de outro usuário"))
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
+	} else if !isAdmin {
+		usuarioID, erro := auth.PegaUsuarioIDToken(r)
+		if erro != nil {
+			respostas.JSONerror(w, http.StatusUnauthorized, erro)
+			return
+		}
+		if clienteID != usuarioID {
+			respostas.JSONerror(w, http.StatusForbidden, errors.New("você não tem permissão para atualizar um agendamento de outro usuário"))
+			return
+		}
 	}
 
 	corpoRequest, erro := ioutil.ReadAll(r.Body)
@@ -554,21 +546,6 @@ O que faz:
 */
 func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 
-	isAdmin, erro := auth.IsAdmin(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	} else if isAdmin == true {
-		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("eu sei que você é admin e pode fazer tudo, mas essa rota é exclusiva do cliente"))
-		return
-	}
-
-	usuarioID, erro := auth.PegaUsuarioIDToken(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusUnauthorized, erro)
-		return
-	}
-
 	parametros := mux.Vars(r)
 	agendamentoID, erro := strconv.ParseUint(parametros["agendamentoId"], 10, 64)
 	if erro != nil {
@@ -590,9 +567,20 @@ func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if clienteID != usuarioID {
-		respostas.JSONerror(w, http.StatusForbidden, errors.New("você não tem permissão de remover um agendamento de outro usuário"))
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
+	} else if !isAdmin {
+		usuarioID, erro := auth.PegaUsuarioIDToken(r)
+		if erro != nil {
+			respostas.JSONerror(w, http.StatusUnauthorized, erro)
+			return
+		}
+		if clienteID != usuarioID {
+			respostas.JSONerror(w, http.StatusForbidden, errors.New("você não tem permissão de remover um agendamento de outro usuário"))
+			return
+		}
 	}
 
 	if erro = repo.DeletarAgendamento(agendamentoID); erro != nil {

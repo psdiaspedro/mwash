@@ -84,6 +84,7 @@ func (repo Propriedade) BuscarPropriedadePorId(propriedadeID uint64) (models.Pro
 			&propriedade.Logadouro,
 			&propriedade.Numero,
 			&propriedade.Complemento,
+			&propriedade.Obs,
 		); erro != nil {
 		return models.Propriedade{}, erro
 		}
@@ -99,11 +100,11 @@ func (repo Propriedade) AtualizarPropriedade(propriedadeID uint64, propriedade m
 		return erro
 	}
 	defer statement.Close()
-
+	
 	if _, erro = statement.Exec(valores...); erro != nil {
 		return erro
 	}
-
+	
 	return nil
 }
 

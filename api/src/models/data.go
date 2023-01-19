@@ -99,7 +99,7 @@ func (data *Data) parseAnoMesDia(dataFormatada string, dataRaw string) (Data, er
 }
 
 func (data *Data) GerarQueryString(d Data) (string, []any) {
-	query := "select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, u.nome, u.email from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where "
+	query := "select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, u.nome, u.email, u.contato from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where "
 
 	var valores []any
 

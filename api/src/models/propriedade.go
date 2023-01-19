@@ -15,6 +15,7 @@ type Propriedade struct {
 	Logadouro		string	`json:"logadouro,omitempty"`
 	Numero			string	`json:"numero,omitempty"`
 	Complemento		string	`json:"complemento,omitempty"`
+	Obs				string	`json:"obs,omitempty"`
 }
 
 func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID uint64) (string, []any) {
@@ -65,6 +66,14 @@ func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID
 		query += " complemento = ?"
 		valores = append(valores, prop.Complemento)
 	}
+
+	if propriedade.Obs != "" {
+		if propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" || propriedade.Complemento != "" {
+			query += ","
+		}
+		query += " observacoes = ?"
+		valores = append(valores, prop.Obs)
+	}
 	
 	valores = append(valores, fmt.Sprintf("%d", propriedadeID))
 	query += " where id = ?"
@@ -87,8 +96,8 @@ func (propriedade *Propriedade) Validar(etapa string) error {
 			return errors.New("esta faltando um ou mais dados obrigatórios para o cadastro (cidade, bairro, CEP, logadouro ou número)")
 		}
 	} else if etapa == "atualizar" {
-		if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == "" {
-			return errors.New("Campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero ou complemento")
+		if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == ""  && propriedade.Obs == ""{
+			return errors.New("campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero, complemento ou observações")
 		}
 	}
 
@@ -102,6 +111,7 @@ func (propriedade *Propriedade) formatar() {
 	propriedade.Logadouro = strings.TrimSpace(propriedade.Logadouro)
 	propriedade.Numero = strings.TrimSpace(propriedade.Numero)
 	propriedade.Complemento = strings.TrimSpace(propriedade.Complemento)
+	propriedade.Obs = strings.TrimSpace(propriedade.Obs)
 }
 
 func (propriedade *Propriedade) PropriedadeCadastrada() error {

@@ -25,7 +25,8 @@ CREATE TABLE propriedades(
     CEP varchar(15) not null,
     logadouro varchar(50) not null,
     numero varchar(10) not null,
-    complemento varchar(100)
+    complemento varchar(100),
+    observacoes varchar(100)
 ) ENGINE=INNODB;  
 
 CREATE TABLE agendamentos(

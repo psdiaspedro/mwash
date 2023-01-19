@@ -1,7 +1,7 @@
 package models
 
 type Calendario struct {
-	AgendamentoID  uint64 `json:"agendamentoid,omitempty"`
+	AgendamentoID  uint64 `json:"agendamentoId,omitempty"`
 	PropriedadeID  uint64 `json:"propriedadeId,omitempty"`
 	DiaAgendamento string `json:"diaAgendamento,omitempty"`
 	Checkin        string `json:"checkin,omitempty"`
@@ -16,4 +16,5 @@ type Calendario struct {
 	Complemento    string `json:"complemento,omitempty"`
 	Nome           string `json:"nome,omitempty"`
 	Email          string `json:"email,omitempty"`
+	Contato        string `json:"contato,omitempty"`
 }

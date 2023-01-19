@@ -159,14 +159,14 @@ func AtualizarPropriedade(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer db.Close()
-
+	
 	repo := repositorios.NovoRepoPropriedade(db)
 	dbPropriedade, erro := repo.BuscarPropriedadePorId(propriedadeID)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-
+	
 	if erro = dbPropriedade.PropriedadeCadastrada(); erro != nil {
 		respostas.JSONerror(w, http.StatusUnprocessableEntity, erro)
 		return
@@ -188,12 +188,11 @@ func AtualizarPropriedade(w http.ResponseWriter, r *http.Request) {
 		respostas.JSONerror(w, http.StatusBadRequest, erro)
 		return
 	}
-
+	
 	if erro = propriedade.Preparar("atualizar"); erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
 	}
-
 	if erro = repo.AtualizarPropriedade(propriedadeID, propriedade); erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
 		return
