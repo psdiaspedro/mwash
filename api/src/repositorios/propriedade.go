@@ -15,14 +15,14 @@ func NovoRepoPropriedade(db *sql.DB) *Propriedade {
 
 func (repo Propriedade) CriarPropriedade(propriedade models.Propriedade) (uint64, error) {
 	statement, erro := repo.db.Prepare(
-		"insert into propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento) values (?, ?, ?, ?, ?, ?, ?)",
+		"insert into propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, wifi, outros, observacoes, cor) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 	)
 	if erro != nil {
 		return 0, erro
 	}
 	defer statement.Close()
 
-	resultado, erro := statement.Exec(propriedade.ProprietarioID, propriedade.Cidade, propriedade.Bairro, propriedade.CEP, propriedade.Logadouro, propriedade.Numero, propriedade.Complemento)
+	resultado, erro := statement.Exec(propriedade.ProprietarioID, propriedade.Cidade, propriedade.Bairro, propriedade.CEP, propriedade.Logadouro, propriedade.Numero, propriedade.Complemento, propriedade.Senha, propriedade.Acomodacao, propriedade.Wifi, propriedade.Outros, propriedade.Obs, propriedade.Cor)
 	if erro != nil {
 		return 0, erro
 	}
@@ -36,7 +36,7 @@ func (repo Propriedade) CriarPropriedade(propriedade models.Propriedade) (uint64
 }
 
 func (repo Propriedade) BuscarPropriedadesDoUsuario(usuarioID uint64) ([]models.Propriedade, error) {
-	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento from propriedades p where cliente_id = ?", usuarioID)
+	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.senha, p.acomodacao, p.wifi, p.outros, p.observacoes, p.cor from propriedades p where cliente_id = ?", usuarioID)
 	if erro != nil {
 		return nil, erro
 	}
@@ -55,6 +55,48 @@ func (repo Propriedade) BuscarPropriedadesDoUsuario(usuarioID uint64) ([]models.
 			&propriedade.Logadouro,
 			&propriedade.Numero,
 			&propriedade.Complemento,
+			&propriedade.Senha,
+			&propriedade.Acomodacao,
+			&propriedade.Wifi,
+			&propriedade.Outros,
+			&propriedade.Obs,
+			&propriedade.Cor,
+		); erro != nil {
+			return nil, erro
+		}
+
+		propriedades = append(propriedades, propriedade)
+	}
+
+	return propriedades, nil
+}
+
+func (repo Propriedade) BuscarTodasPropriedades() ([]models.Propriedade, error) {
+	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.senha, p.acomodacao, p.wifi, p.outros, p.observacoes, p.cor from propriedades p")
+	if erro != nil {
+		return nil, erro
+	}
+	defer linhas.Close()
+
+	var propriedades []models.Propriedade
+
+	for linhas.Next() {
+		var propriedade models.Propriedade
+
+		if erro = linhas.Scan(
+			&propriedade.ID,
+			&propriedade.Cidade,
+			&propriedade.Bairro,
+			&propriedade.CEP,
+			&propriedade.Logadouro,
+			&propriedade.Numero,
+			&propriedade.Complemento,
+			&propriedade.Senha,
+			&propriedade.Acomodacao,
+			&propriedade.Wifi,
+			&propriedade.Outros,
+			&propriedade.Obs,
+			&propriedade.Cor,
 		); erro != nil {
 			return nil, erro
 		}
@@ -84,7 +126,12 @@ func (repo Propriedade) BuscarPropriedadePorId(propriedadeID uint64) (models.Pro
 			&propriedade.Logadouro,
 			&propriedade.Numero,
 			&propriedade.Complemento,
+			&propriedade.Senha,
+			&propriedade.Acomodacao,
+			&propriedade.Wifi,
+			&propriedade.Outros,
 			&propriedade.Obs,
+			&propriedade.Cor,
 		); erro != nil {
 		return models.Propriedade{}, erro
 		}

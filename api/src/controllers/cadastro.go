@@ -1,13 +1,11 @@
 package controllers
 
 import (
-	"api/src/auth"
 	"api/src/database"
 	"api/src/models"
 	"api/src/repositorios"
 	"api/src/respostas"
 	"encoding/json"
-	"errors"
 	"io"
 	"net/http"
 )
@@ -39,20 +37,12 @@ func CadastrarUsuario(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	isAdmin, erro := auth.IsAdmin(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	} else if !isAdmin {
-		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("você não tem permissão para realizar essa ação"))
-		return
-	}
-
 	var usuario models.Usuario
 	if erro = json.Unmarshal(corpoRequest, &usuario); erro != nil {
 		respostas.JSONerror(w, http.StatusBadRequest, erro)
 		return
 	}
+	
 
 	if erro = usuario.Preparar("cadastro"); erro != nil {
 		respostas.JSONerror(w, http.StatusBadRequest, erro)

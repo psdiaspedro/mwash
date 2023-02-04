@@ -119,6 +119,43 @@ func ListarPropriedades(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
+	Função chamada pela rota GET /todas_propriedades
+
+	O que faz:
+		- Recupera o ID do usário logado através do token
+		- Se tudo estiver OK, chama a função que busca as propriedades do ID recuperado.
+		- Retorna um caso de sucesso ou um caso de fracasso.
+
+	- Sucesso:
+		- status code 200
+		- JSON com uma lista de todas as propriedades do ID logado
+			- null, caso não encontre nada
+	- Fracasso:
+		- Retorna algum status code negativo
+		- Retorna o erro de acordo com o problema
+*/
+func ListarTodasPropriedades(w http.ResponseWriter, r *http.Request) {
+
+	db, erro := database.ConectarBancoDeDados()
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	var propriedades []models.Propriedade
+	
+	repo := repositorios.NovoRepoPropriedade(db)
+	propriedades, erro = repo.BuscarTodasPropriedades()
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSONresponse(w, http.StatusOK, propriedades)
+}
+
+/*
 	Função chamada pela rota PATCH /minhas_propriedades/{propriedadeId}
 
 	O que faz:

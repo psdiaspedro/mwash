@@ -14,5 +14,5 @@ var rotaCadastro = Route {
 	URI:		"/cadastrar",
 	Metodo:		"POST",
 	Funcao:		controllers.CadastrarUsuario,
-	RequerAuth:	true,
+	RequerAuth:	false,
 }

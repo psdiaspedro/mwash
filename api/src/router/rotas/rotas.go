@@ -24,7 +24,6 @@ func ConfigurarRotas(r *mux.Router) *mux.Router {
 	rotas = append(rotas, rotaAuth)
 
 	for _, rota := range rotas {
-
 		if rota.RequerAuth {
 			r.HandleFunc(rota.URI, middlewares.Logger(middlewares.Auth(rota.Funcao))).Methods(rota.Metodo)
 		} else {

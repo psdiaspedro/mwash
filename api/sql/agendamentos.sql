@@ -67,7 +67,7 @@ INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, ob
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-08-30", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-1", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-2", "", "12:30:00", "abc");
-INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-5", "", "12:30:00",selec "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-5", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-7", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-14", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (3,  DATE "2023-09-16", "", "12:30:00", "abc");
@@ -99,3 +99,47 @@ INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, ob
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (4,  DATE "2023-12-20", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (4,  DATE "2023-12-22", "", "12:30:00", "abc");
 INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (4,  DATE "2023-12-28", "", "12:30:00", "abc");
+
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-01-21", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-01-20", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-01-19", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-02-13", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-02-10", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-02-05", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-03-21", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-03-20", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-03-19", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-04-13", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-04-10", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (5,  DATE "2023-04-05", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-05-21", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-05-20", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-05-19", "", "12:30:00", "abc");
+
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (4,  DATE "2023-01-28", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-06-10", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-06-05", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-07-21", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-07-20", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-07-19", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-08-13", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-08-10", "", "12:30:00", "abc");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (6,  DATE "2023-08-05", "", "12:30:00", "abc");
+
+
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (29,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (30,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (31,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (32,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (29,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (30,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (31,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (32,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (33,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (34,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (35,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (33,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (34,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (35,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (33,  DATE "2023-02-06", "", "12:30:00", "Teste");
+INSERT INTO agendamentos (propriedade_id, dia_agendamento, checkin, checkout, observacoes) VALUES (34,  DATE "2023-02-06", "", "12:30:00", "Teste");

@@ -255,9 +255,9 @@ func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var agendamentos []models.Agendamento
+	var agendamentos []models.Calendario
 
-	repo := repositorios.NovoRepoAgendamento(db)
+	repo := repositorios.NovoRepoCalendario(db)
 	agendamentos, erro = repo.BuscarAgendamentosPorDataLogado(data, usuarioIdToken)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
@@ -562,7 +562,21 @@ func RemoverAgendamento(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
+	//verificar se o agendamento existe
+	var agendamento models.Agendamento
 	repo := repositorios.NovoRepoAgendamento(db)
+	agendamento, erro = repo.BuscarAgendamentoPorId(agendamentoID)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+	
+	if (agendamento.ID == 0) {
+		respostas.JSONerror(w, http.StatusInternalServerError, errors.New("agendamento não encontrado"))
+		return
+	}
+
+	repo = repositorios.NovoRepoAgendamento(db)
 	clienteID, erro := repo.BuscarClientePorAgendamentoId(agendamentoID)
 	if erro != nil {
 		respostas.JSONerror(w, http.StatusInternalServerError, erro)

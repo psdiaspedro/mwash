@@ -51,8 +51,8 @@ func (data *Data) VerificaData(dataString string) (Data, error) {
 
 func (data *Data) formataData(dataString string) string {
 	dataFormatada := strings.Trim(dataString, "-")
-	dataFormatada = strings.TrimSpace(dataString)
-	dataFormatada = strings.ReplaceAll(dataString, "-", "/")
+	dataFormatada = strings.TrimSpace(dataFormatada)
+	dataFormatada = strings.ReplaceAll(dataFormatada, "-", "/")
 	return dataFormatada
 }
 
@@ -99,7 +99,7 @@ func (data *Data) parseAnoMesDia(dataFormatada string, dataRaw string) (Data, er
 }
 
 func (data *Data) GerarQueryString(d Data) (string, []any) {
-	query := "select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, u.nome, u.email, u.contato from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where "
+	query := "select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.senha, p.acomodacao, p.wifi, p.outros, p.observacoes, p.cor, u.nome, u.email, u.contato from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where "
 
 	var valores []any
 
@@ -140,5 +140,27 @@ func (data *Data) GerarQueryStringUsuarioId(d Data, usuarioId uint64) (string, [
 		valores = append(valores, d.Dia)
 	}
 
+	return query, valores
+}
+
+func (data *Data) GerarQueryStringCalendarioUsuarioId(d Data, usuarioId uint64) (string, []any) {
+	query := "select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.senha, p.acomodacao, p.wifi, p.outros, p.observacoes, p.cor, u.nome, u.email, u.contato from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where u.id = ? and "
+
+	var valores []any
+	valores = append(valores, usuarioId)
+
+	if d.Dia == "" && d.Mes == "" && d.Ano != "" {
+		query += "extract(year from dia_agendamento) = ? order by dia_agendamento asc"
+		valores = append(valores, d.Ano)
+	} else if d.Dia == "" && d.Mes != "" && d.Ano != "" {
+		query += "extract(year from dia_agendamento) = ? and extract(month from dia_agendamento) = ? order by dia_agendamento asc"
+		valores = append(valores, d.Ano)
+		valores = append(valores, d.Mes)
+	} else if d.Dia != "" && d.Mes != "" && d.Ano != "" {
+		query += "extract(year from dia_agendamento) = ? and extract(month from dia_agendamento) = ? and extract(day from dia_agendamento) = ? order by dia_agendamento asc"
+		valores = append(valores, d.Ano)
+		valores = append(valores, d.Mes)
+		valores = append(valores, d.Dia)
+	}
 	return query, valores
 }

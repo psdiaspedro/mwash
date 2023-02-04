@@ -3,6 +3,7 @@ package repositorios
 import (
 	"api/src/models"
 	"database/sql"
+	"fmt"
 )
 
 type Calendario struct {
@@ -15,6 +16,7 @@ func NovoRepoCalendario(db *sql.DB) *Calendario {
 
 func (repo Calendario) BuscarAgendamentosPorData(data models.Data) ([]models.Calendario, error) {
 	query, valores := data.GerarQueryString(data)
+	fmt.Println(valores)
 	linhas, erro := repo.db.Query(query, valores...)
 	if erro != nil {
 		return nil, erro
@@ -40,6 +42,12 @@ func (repo Calendario) BuscarAgendamentosPorData(data models.Data) ([]models.Cal
 			&calendario.Logadouro,
 			&calendario.Numero,
 			&calendario.Complemento,
+			&calendario.Senha,
+			&calendario.Acomodacao,
+			&calendario.Wifi,
+			&calendario.Outros,
+			&calendario.ObsProp,
+			&calendario.Cor,
 			&calendario.Nome,
 			&calendario.Email,
 			&calendario.Contato,
@@ -54,7 +62,7 @@ func (repo Calendario) BuscarAgendamentosPorData(data models.Data) ([]models.Cal
 }
 
 func (repo Calendario) BuscarAgendamentosDoUsuario(usuarioID uint64) ([]models.Calendario, error) {
-	linhas, erro := repo.db.Query("select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, u.nome, u.email, u.contato from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where u.id = ? order by a.dia_agendamento desc", usuarioID)
+	linhas, erro := repo.db.Query("select a.*, p.cliente_id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.observacoes, p.wifi, p.outros, p.cor, p.senha, u.nome, u.email, u.contato from agendamentos a INNER JOIN propriedades p ON p.id = a.propriedade_id INNER JOIN usuarios u on u.id = p.cliente_id where u.id = ? order by a.dia_agendamento desc", usuarioID)
 	if erro != nil {
 		return nil, erro
 	}
@@ -79,6 +87,58 @@ func (repo Calendario) BuscarAgendamentosDoUsuario(usuarioID uint64) ([]models.C
 			&agendamento.Logadouro,
 			&agendamento.Numero,
 			&agendamento.Complemento,
+			&agendamento.Senha,
+			&agendamento.Acomodacao,
+			&agendamento.Wifi,
+			&agendamento.Outros,
+			&agendamento.ObsProp,
+			&agendamento.Cor,
+			&agendamento.Nome,
+			&agendamento.Email,
+			&agendamento.Contato,
+		); erro != nil {
+			return nil, erro
+		}
+
+		agendamentos = append(agendamentos, agendamento)
+	}
+
+	return agendamentos, nil
+}
+
+func (repo Calendario) BuscarAgendamentosPorDataLogado(data models.Data, usuarioId uint64) ([]models.Calendario, error) {
+	query, valores := data.GerarQueryStringCalendarioUsuarioId(data, usuarioId)
+	linhas, erro := repo.db.Query(query, valores...)
+	if erro != nil {
+		return nil, erro
+	}
+	defer linhas.Close()
+
+	var agendamentos []models.Calendario
+
+	for linhas.Next() {
+		var agendamento models.Calendario
+
+		if erro = linhas.Scan(
+			&agendamento.AgendamentoID,
+			&agendamento.PropriedadeID,
+			&agendamento.DiaAgendamento,
+			&agendamento.Checkin,
+			&agendamento.Checkout,
+			&agendamento.Obs,
+			&agendamento.ProprietarioID,
+			&agendamento.Cidade,
+			&agendamento.Bairro,
+			&agendamento.CEP,
+			&agendamento.Logadouro,
+			&agendamento.Numero,
+			&agendamento.Complemento,
+			&agendamento.Senha,
+			&agendamento.Acomodacao,
+			&agendamento.Wifi,
+			&agendamento.Outros,
+			&agendamento.ObsProp,
+			&agendamento.Cor,
 			&agendamento.Nome,
 			&agendamento.Email,
 			&agendamento.Contato,

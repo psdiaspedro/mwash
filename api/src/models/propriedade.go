@@ -15,7 +15,12 @@ type Propriedade struct {
 	Logadouro		string	`json:"logadouro,omitempty"`
 	Numero			string	`json:"numero,omitempty"`
 	Complemento		string	`json:"complemento,omitempty"`
+	Senha			string	`json:"senha,omitempty"`
+	Acomodacao		string	`json:"acomodacao,omitempty"`
+	Wifi			string	`json:"wifi,omitempty"`
+	Outros			string	`json:"outros,omitempty"`
 	Obs				string	`json:"obs,omitempty"`
+	Cor				uint64	`json:"cor,omitempty"`
 }
 
 func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID uint64) (string, []any) {
@@ -67,14 +72,57 @@ func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID
 		valores = append(valores, prop.Complemento)
 	}
 
+	if propriedade.Senha != "" {
+		if propriedade.Complemento != "" || propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+
+		query += " senha = ?"
+		valores = append(valores, prop.Cor)
+	}
+
+	if propriedade.Acomodacao != "" {
+		if propriedade.Senha != "" || propriedade.Complemento != "" || propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+
+		query += " acomodacao = ?"
+		valores = append(valores, prop.Cor)
+	}
+	
+	if propriedade.Wifi != "" {
+		if propriedade.Acomodacao != "" || propriedade.Senha != "" || propriedade.Complemento != "" || propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " wifi = ?"
+		valores = append(valores, prop.Obs)
+	}
+
+	if propriedade.Outros != "" {
+		if propriedade.Wifi != "" || propriedade.Acomodacao != "" || propriedade.Senha != "" || propriedade.Complemento != "" || propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+		query += " outros = ?"
+		valores = append(valores, prop.Obs)
+	}
+
 	if propriedade.Obs != "" {
-		if propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" || propriedade.Complemento != "" {
+		if propriedade.Outros != "" || propriedade.Wifi != "" || propriedade.Acomodacao != "" || propriedade.Senha != "" || propriedade.Complemento != "" || propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
 			query += ","
 		}
 		query += " observacoes = ?"
 		valores = append(valores, prop.Obs)
 	}
-	
+
+	if propriedade.Cor > 0 {
+		if propriedade.Obs != "" || propriedade.Outros != "" || propriedade.Wifi != "" || propriedade.Acomodacao != "" || propriedade.Senha != "" || propriedade.Complemento != "" || propriedade.Numero != "" || propriedade.Logadouro != "" || propriedade.CEP != "" || propriedade.Bairro != ""  || propriedade.Cidade != "" {
+			query += ","
+		}
+
+		query += " cor = ?"
+		valores = append(valores, prop.Cor)
+	}
+
 	valores = append(valores, fmt.Sprintf("%d", propriedadeID))
 	query += " where id = ?"
 
@@ -96,8 +144,8 @@ func (propriedade *Propriedade) Validar(etapa string) error {
 			return errors.New("esta faltando um ou mais dados obrigatórios para o cadastro (cidade, bairro, CEP, logadouro ou número)")
 		}
 	} else if etapa == "atualizar" {
-		if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == ""  && propriedade.Obs == ""{
-			return errors.New("campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero, complemento ou observações")
+		if propriedade.Cidade == "" && propriedade.Bairro == "" &&   propriedade.CEP == "" &&  propriedade.Logadouro == "" &&  propriedade.Numero == "" &&  propriedade.Complemento == ""  && propriedade.Senha == "" && propriedade.Acomodacao == "" && propriedade.Wifi == "" && propriedade.Obs == "" && propriedade.Outros == "" {
+			return errors.New("campo invalido, você consegue atualizar um dos seguintes campos: cidade, bairro, cep, logadouro, numero, complemento, senha, acomodação, wifi, outros, observações e senha")
 		}
 	}
 
@@ -111,6 +159,10 @@ func (propriedade *Propriedade) formatar() {
 	propriedade.Logadouro = strings.TrimSpace(propriedade.Logadouro)
 	propriedade.Numero = strings.TrimSpace(propriedade.Numero)
 	propriedade.Complemento = strings.TrimSpace(propriedade.Complemento)
+	propriedade.Senha = strings.TrimSpace(propriedade.Obs)
+	propriedade.Acomodacao = strings.TrimSpace(propriedade.Obs)
+	propriedade.Wifi = strings.TrimSpace(propriedade.Obs)
+	propriedade.Outros = strings.TrimSpace(propriedade.Obs)
 	propriedade.Obs = strings.TrimSpace(propriedade.Obs)
 }
 

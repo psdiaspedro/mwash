@@ -17,6 +17,12 @@ var rotasPropriedades = []Route {
 		RequerAuth:	true,
 	},
 	{
+		URI:		"/todas_propriedades",
+		Metodo:		"GET",
+		Funcao:		controllers.ListarTodasPropriedades,
+		RequerAuth:	true,
+	},
+	{
 		URI:		"/minhas_propriedades",
 		Metodo:		"POST",
 		Funcao:		controllers.AdicionarPropriedade,

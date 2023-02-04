@@ -13,5 +13,5 @@ var rotaAuth = Route{
 	URI:        "/usuario/auth",
 	Metodo:     "GET",
 	Funcao:     controllers.ValidarToken,
-	RequerAuth: true,
+	RequerAuth: false,
 }
