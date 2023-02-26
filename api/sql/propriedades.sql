@@ -1,10 +1,10 @@
 -- MICAELA: 7
     -- CENTRO
         -- CONSOLAÇÃO: 1
-            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, wifi, outros, observacoes, cor) VALUES (7,  "São Paulo", "Consolação", "01307-001", "Rua Frei Caneca", "95", "apto 212", "160986#", "Cama queen", "apt12 / maicotel12", "capsula nespressol, bala amarela (Padrão 2)", "Lixeira fica no zero, próximo ao pet place", 1);
+            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, wifi, outros, observacoes, cor, valor) VALUES (7,  "São Paulo", "Consolação", "01307-001", "Rua Frei Caneca", "95", "apto 212", "160986#", "Cama queen", "apt12 / maicotel12", "capsula nespressol, bala amarela (Padrão 2)", "Lixeira fica no zero, próximo ao pet place", 1, 125);
 
         -- BELA VISTA: 2
-            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, wifi, outros, observacoes, cor) VALUES (7,  "São Paulo", "Bela Vista", "01316-010", "Rua Genebra", "296", "apto 512", "090191#", "Cama queen", "bemvindo512", "capsula nespresso, bala amarela (Padrão 2)", "Lixeira subsolo 2", 2);
+            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, wifi, outros, observacoes, cor, valor) VALUES (7,  "São Paulo", "Bela Vista", "01316-010", "Rua Genebra", "296", "apto 512", "090191#", "Cama queen", "bemvindo512", "capsula nespresso, bala amarela (Padrão 2)", "Lixeira subsolo 2", 2, 125);
     
     -- ZONA SUL
         -- VILA MARIANA
@@ -18,7 +18,7 @@
 -- MORA: 6
     -- ZONA OESTE
         -- PINHEIROS
-            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, outros, observacoes, cor) VALUES (6,  "São Paulo", "Pinheiros", "05416-020", "Rua Felipe de Alcaçova", "66", "apto 11", "destrancado", "Casal Normal", "2 bom-bom / 2 águas / PADRÃO 1", "Lixeira proxima a entrada", 500);
+            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, outros, observacoes, cor, valor) VALUES (6,  "São Paulo", "Pinheiros", "05416-020", "Rua Felipe de Alcaçova", "66", "apto 11", "destrancado", "Casal Normal", "2 bom-bom / 2 águas / PADRÃO 1", "Lixeira proxima a entrada", 500, 130);
 
             INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, outros, observacoes, cor) VALUES (6,  "São Paulo", "Pinheiros", "05416-020", "Rua Felipe de Alcaçova", "66", "apto 12", "destrancado", "Casal Normal", "2 bom-bom / 2 águas / PADRÃO 1", "Lixeira proxima a entrada", 500);
 
@@ -36,7 +36,7 @@
 
             INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, outros, observacoes, cor) VALUES (6,  "São Paulo", "Pinheiros", "05416-020", "Rua Felipe de Alcaçova", "66", "apto 34", "destrancado", "Casal Normal", "2 bom-bom / 2 águas / PADRÃO 1", "Lixeira proxima a entrada", 500);
 
-            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, outros, observacoes, cor) VALUES (6,  "São Paulo", "Pinheiros", "05416-020", "Rua Felipe de Alcaçova", "66", "apto 35", "destrancado", "Casal Normal", "2 bom-bom / 2 águas / PADRÃO 1", "Lixeira proxima a entrada", 500);
+            INSERT INTO propriedades (cliente_id, cidade, bairro, CEP, logadouro, numero, complemento, senha, acomodacao, outros, observacoes, cor, valor) VALUES (6,  "São Paulo", "Pinheiros", "05416-020", "Rua Felipe de Alcaçova", "66", "apto 35", "destrancado", "Casal Normal", "2 bom-bom / 2 águas / PADRÃO 1", "Lixeira proxima a entrada", 500, 130);
 
 -- ADMIN
 

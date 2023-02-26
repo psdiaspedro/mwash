@@ -31,7 +31,8 @@ CREATE TABLE propriedades(
     wifi varchar(100) default "",
     outros varchar(100) default "",
     observacoes varchar(100) default "",
-    cor int not null
+    cor int not null,
+    valor decimal(10, 2) not null
 ) ENGINE=INNODB;  
 
 CREATE TABLE agendamentos(

@@ -7,12 +7,13 @@ CENTRO - VERMELHO
                 - Outros:   Padrão 1
                 - Acomodação: casal
                 - Obs:
-            Rua Castro Alves, 442, apto 92
+            Rua Castro Alves, 442, apto 92 B
                 - Senha: 6359√ 
                 - Wifi:
                 - Outros: Padrão 1
                 - Acomodação: casal queen + sofá cama = até 3 pessoas
                 - Obs: Lixeira -1
+
     CAMBUCI
         MAICOTEL
             Rua Barão de Jaguara, 970, apto 203
@@ -21,6 +22,7 @@ CENTRO - VERMELHO
                 - Outros: açucar, sal e azeite (Padrão 2)
                 - Acomodação: casal normal + sofá cama = até 3 pessoas
                 - Obs: Lixeira fica no 2 sub solo
+    
     SÉ
         CANAL DO ANFITRIAO
             Rua Tabatinguera, 462  Sé, apto 1008
@@ -29,9 +31,10 @@ CENTRO - VERMELHO
                 - Outros: Padrão 1
                 - Acomodação: casal normal
                 - Obs: Lixeira????
+    
     SANTA CECILIA
         CANAL DO ANFITRIAO
-            Praça Marechal Deodoro, 439, apto 93
+            Praça Marechal Deodoro, 439, apto 93 B
                 - Senha: 6359√
                 - Wifi: Rede: RustySP / Senha: je1950almv
                 - Outros: Padrão 1
@@ -40,12 +43,13 @@ CENTRO - VERMELHO
 
     CONSOLAÇÃO
         MICAELA
-            Rua Frei Caneca, 95, apto 212
+            Rua Frei Caneca, 95, apto 212 (MOBI)
                 - Senha: 160986#
                 - Wifi: Rede: apt12 / Senha: maicotel12
                 - Outros:   capsula nespresso / bala amarela (Padrão 2)
                 - Acomodação: cama queen 
                 - Obs: Lixeira fica no zero, proximo ao pet place
+        
         MAICOTEL
             Rua Frei Caneca, 95, apto 303
                 - Senha: 1436√
@@ -102,7 +106,7 @@ CENTRO - VERMELHO
                 - Acomodação: casal normal
                 - Obs: Lixeira fica no zero, proximo ao pet place
             Rua Frei Caneca, 95, apto 1209 
-                -  - Senha: 1436√
+                - Senha: 1436√
                 - Wifi: Rede: apto1209 / senha: maicotel1209
                 - Outros: açucar, sal e azeite (Padrão 2)
                 - Acomodação: casal normal
@@ -119,6 +123,117 @@ CENTRO - VERMELHO
                 - Outros: açucar, sal e azeite (Padrão 2)
                 - Acomodação: casal normal + sofá cama  // cera vermelho = até 4 pessoas
                 - Obs: Lixeira fica no terreo proximo ao portão da garagem
+            
+            Rua da Consolação, 301, apto 704
+                - Senha: 141071
+                - Wifi: Rede: apto107A_2G ou 5G / senha: maicotel107a
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal 
+                - Obs:
+            Rua da Consolação, 1515, apto 107 A
+                - Senha: 1436√
+                - Wifi: Rede: apto107A_2G ou 5G / senha: maicotel107a
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: cama queen + sofa cama
+                - Obs: Lixeira proximo ao portão da garagem 
+
+            Rua Nestor Pestana, 237, apto 104 
+                - Senha: 1436√ ou *
+                - Wifi: Rede: apto104 / senha: maicotel104
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: cama casal + cama solteiro
+                - Obs: Lixeira -1
+            
+            Rua Caio Prado, 275, apto 1203
+                - Senha: 1436√
+                - Wifi: Rede: apto1203 / senha: maicotel1203
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: 2 camas queen // sofá cama // 2 banheiros
+                - Obs:
+        
+        THOMPSON
+            Rua Avanhandava, 65, apto 207
+                - Senha: 9036*
+                - Wifi: Rede: Gato Net / Senha: 14092020
+                - Outros: ""
+                - Acomodação: cama queen 
+                - Obs: 
+
+    BELA VISTA
+        MAICOTEL
+            Rua Conselheiro Ramalho, 376, apto 208
+                - Senha: 160986#
+                - Wifi: Rede: apto309/ Senha:maicotel309
+                - Outros:  capsula nespresso + açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + sofá cama = até 4 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 212
+                - Senha: 160986#
+                - Wifi: Rede: apto309/ Senha:maicotel309
+                - Outros:  capsula nespresso + açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + sofá cama = até 4 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 309
+                - Senha: 1436√
+                - Wifi: Rede: apto309 / senha: maicotel309
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal casal
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 601
+                - Senha: 1436√
+                - Wifi: Rede: Rede: Claudio701 / Senha: Nenem367121$
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal quee + sofá cama = até 4 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 908
+                - Senha: 1805✔ 
+                - Wifi: Rede: Rede: Rede: Apto_917 / senha: maicotel917
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 914
+                - Senha: 3769914#
+                - Wifi: Rede: AP914 / senha: bento@914
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: queen há confirmar + sofá cama
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 1215
+                - Senha: 160986#
+                - Wifi: Rede: apto1215 / senha: maicotel1215
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + colchonte solteiro = até 3 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 1313
+                - Senha: 1436√
+                - Wifi: Rede: apto1313 / senha: maicotel1313
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + sofá cama + 3 travesseiros // 2 banheiros = até 3 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 1605
+                - Senha: 180150#
+                - Wifi: Rede: CLARO_2G90CE87 ou CLARO_5G90CE87/ Senha: E290CE87
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + bicama = até 4 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 1705
+                - Senha: 160986#
+                - Wifi: Rede: CLARO_90CE87 / Senha: E4C0E290CE87 
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal queen + sofá cama = até 4 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 1711
+                - Senha: 1788
+                - Wifi: Rede: Apto1711 / Senha: maicotel1711
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal queen + solteiro king + 2 banheiros
+                - Obs: Lixeira proximo o portão da garagem
+            Rua Conselheiro Ramalho, 376, apto 1712
+                - Senha: 180150#
+                - Wifi: Rede: Apto1711 / Senha: maicotel1711
+                - Outros:  açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + bicama = até 4 pessoas
+                - Obs: Lixeira proximo o portão da garagem
+
             Rua Frei Caneca, 661, apto 915
                 - Senha: 1436✔  
                 - Wifi: 
@@ -131,59 +246,66 @@ CENTRO - VERMELHO
                 - Outros: açucar, sal e azeite (Padrão 2)
                 - Acomodação:
                 - Obs: 
-            Rua da Consolação, 301, apto 704
-                - Senha: 141071
-                - Wifi: Rede: apto107A_2G ou 5G / senha: maicotel107a
+
+            Rua Genebra, 296, apto 210
+                - Senha: 1436√
+                - Wifi: Rede: Britto Aparts / Senha: brittoaparts2
                 - Outros: açucar, sal e azeite (Padrão 2)
-                - Acomodação: casal normal 
-                - Obs:
-            Rua da Consolação, 297, apto 1309
-                - Senha: 
-                - Wifi:
+                - Acomodação: casal normal + bicama = até 3 pessoas
+                - Obs:  Lixeira -2
+            Rua Genebra, 296, apto 906
+                - Senha: 160986#
+                - Wifi: Rede: apto906 / senha: maicotel906
+                - Outros:  capsula nespresso + açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal + bicama = até 3 pessoas
+                - Obs:  Lixeira -2
+            Rua Genebra, 197,  apto 1005
+                - Senha: 20113211202
+                - Wifi: Rede: apto1005 / senha: maicotel1005
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: cama casal + 1 banheiro + sofá cama **piso laminado = até 4 pessoas
+                - Obs: Lixeira no -1 e -2 cada andar é o lixo correto reciclado/organico
+        
+            Rua Dr. Penaforte Mendes, 160, apto 2401D Torre 2
+                - Senha: 1436✔
+                - Wifi: Rede: FACTO2401 / Senha: maicotel2401
                 - Outros: açucar, sal e azeite (Padrão 2)
                 - Acomodação:
+                - Obs: Lixeira 1 andar, saindo do elevador a direita
+            Rua Dr. Penaforte Mendes, 160, apto 2505D Torre 2
+                - Senha: 1436✔
+                - Wifi: Rede: apto2505 / Senha: maicotel2505
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: cama casal 
+                - Obs: Lixeira 1 andar, saindo do elevador a direita
+            
+            Rua Aguiar de Barros, 69, apto 712
+                - Senha: 141071
+                - Wifi: Rede: apto712 / senha: maicotel712
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação: casal normal  
                 - Obs:
-            Rua da Consolação, 1515, apto 107 A
-                - Senha: 1436√
-                - Wifi: Rede: apto107A_2G ou 5G / senha: maicotel107a
+            Rua Aguiar de Barros, 69, apto 1901
+                - Senha: 1436*
+                - Wifi: Rede: apto1901 / senha: maicotel1901
                 - Outros: açucar, sal e azeite (Padrão 2)
-                - Acomodação: cama queen + sofa cama
-                - Obs: Lixeira proximo ao portão da garagem 
-
-        THOMPSON
-            Rua Avanhandava, 65, apto 207
-                - Senha: 9036*
-                - Wifi: Rede: Gato Net / Senha: 14092020
-                - Outros: ""
-                - Acomodação: cama queen 
-                - Obs: 
-        MAICOTEL
-            Rua Nestor Pestana, 237, apto 104 
-                - Senha: 1436√ ou *
-                - Wifi: Rede: apto104 / senha: maicotel104
+                - Acomodação: casal normal  
+                - Obs:
+            
+            Rua Manoel Dutra 43, apto 209
+                - Senha: 1436✔ 
+                - Wifi:
                 - Outros: açucar, sal e azeite (Padrão 2)
-                - Acomodação: cama casal + cama solteiro
+                - Acomodação: casal normal + sofá cama = até 4 pessoas
                 - Obs: Lixeira -1
-            Rua Caio Prado, 275, apto 1203
-                - Senha: 1436√
-                - Wifi: Rede: apto1203 / senha: maicotel1203
+
+            Rua Santo Amaro, 300, apto 1006
+                - Senha: 1436*
+                - Wifi: Rede: apto1006 / senha: maicotel1006
                 - Outros: açucar, sal e azeite (Padrão 2)
-                - Acomodação: 2 camas queen // sofá cama // 2 banheiros
+                - Acomodação: casal normal + sofá cama = até 4 pessoas
                 - Obs:
-    BELA VISTA
-        MAICOTEL
-            Rua Conselheiro Ramalho, 376, apto 208
-            Rua Conselheiro Ramalho, 376, apto 212
-            Rua Conselheiro Ramalho, 376, apto 309
-            Rua Conselheiro Ramalho, 376, apto 601
-            Rua Conselheiro Ramalho, 376, apto 908
-            Rua Conselheiro Ramalho, 376, apto 914
-            Rua Conselheiro Ramalho, 376, apto 1215
-            Rua Conselheiro Ramalho, 376, apto 1313
-            Rua Conselheiro Ramalho, 376, apto 1605
-            Rua Conselheiro Ramalho, 376, apto 1705
-            Rua Conselheiro Ramalho, 376, apto 1711
-            Rua Conselheiro Ramalho, 376, apto 1712
+        
         TOM
             Rua Conselheiro Ramalho, 376, apto 207
                 - Senha: 2930#
@@ -197,15 +319,7 @@ CENTRO - VERMELHO
                 - Outros: ""
                 - Acomodação: ""
                 - Obs: Lixeira proximo o portão da garagem
-        BRUNO
-            Rua Conselheiro Ramalho, 376, apto 1509
-                - Senha: 4724
-                - Wifi: ""
-                - Outros: Padrão 1 // Out 11hs
-                - Acomodação: Casa normal
-                - Obs: ""
 
-        TOM
             Rua Genebra, 296, apto 204
                 - Senha: 293031#
                 - Wifi: ""
@@ -254,10 +368,15 @@ CENTRO - VERMELHO
                 - Outros:
                 - Acomodação: casal normal + sofá cama // padrão 2
                 - Obs:   Lixeira -2
-        MAICOTEL
-            Rua Genebra, 296, apto 210
-            Rua Genebra, 296, apto 906
-            Rua Genebra, 197,  apto 1005
+        
+        BRUNO
+            Rua Conselheiro Ramalho, 376, apto 1509
+                - Senha: 4724
+                - Wifi: ""
+                - Outros: Padrão 1 // Out 11hs
+                - Acomodação: Casa normal
+                - Obs: ""
+    
         MICAELA
             Rua Genebra, 296, apto 512
                 - Senha: 090191#
@@ -265,19 +384,28 @@ CENTRO - VERMELHO
                 - Outros: capsula nespresso / bala rosa (Padrão 2)
                 - Acomodação: cama queen 
                 - Obs:  Lixeira -2
+        
         CANAL DO ANFITRIAO
-            Rua Dr. Penaforte Mendes, 160, apto 1606D
-            Rua Dr. Penaforte Mendes, 160, apto 2308C
-        MAICOTEL
-            Rua Dr. Penaforte Mendes, 160, apto 2401D
-            Rua Dr. Penaforte Mendes, 160, apto 2505D
-            Rua Aguiar de Barros, 69, apto 712
-            Rua Aguiar de Barros, 69, apto 1901
-        CANAL DO ANFITRIAO
-            Rua Dr. Seng 182, apto 1008
-        MAICOTEL
-            Rua Manoel Dutra 43, apto 209
-            Rua Santo Amaro, 300, apto 1006
+            Rua Dr. Penaforte Mendes, 160, apto 1606D Torre 2
+                - Senha: 6359✔ 
+                - Wifi: Rede: 1606D / Senha: Home1606F@cto
+                - Outros: Padrão 1
+                - Acomodação: 1 queen 
+                - Obs: Lixeira 1 andar, saindo do elevador a direita
+            Rua Dr. Penaforte Mendes, 160, apto 2308C Torre 2
+                - Senha: 5487✔ 
+                - Wifi: Rede: Rede:2308C / Senha: Isa90dor2308
+                - Outros: Padrão 1
+                - Acomodação: 1 queen + 1 sofá cama queen
+                - Obs: Lixeira 1 andar, saindo do elevador a direita
+
+            Rua Dr. Seng 182, apto 1008 Bloco B
+                - Senha: 6359✔ 
+                - Wifi:
+                - Outros: Padrão 1
+                - Acomodação: casal normal
+                - Obs: Lixeira?????
+    
     LIBERDADE
         MAICOTEL
             Rua Vergueiro, 1009, apto 507
@@ -312,7 +440,8 @@ CENTRO - VERMELHO
             Rua Tamandaré, 471, apto 101
         MAICOTEL
             Rua do Glicerio, 301, apto 711
-    CENTRO HISTORICO DE SP
+    
+    CENTRO HISTORICO DE SP (Sé + Republica)
         MAICOTEL
             Rua Brigadeiro Tobias, 334, apto 155
             Rua Brigadeiro Tobias, 334, apto 178
@@ -332,6 +461,7 @@ CENTRO - VERMELHO
                 - OBS: ""
         MAICOTEL
             Avenida Senador Queirós, 101, apto 36
+    
     REPUBLICA
         MAICOTEL
             Avenida Casper Libero, 501, apto 216
@@ -340,17 +470,25 @@ CENTRO - VERMELHO
             Avenida Casper Libero, 501, apto 712
             Avenida Casper Libero, 501, apto 816
             Avenida Casper Libero, 501, apto 1207
-    CAMPOS ELISEOS
+            Rua da Consolação, 297, apto 1309 (republica)
+                - Senha: 
+                - Wifi:
+                - Outros: açucar, sal e azeite (Padrão 2)
+                - Acomodação:
+                - Obs:
+    
+    CAMPOS ELISEOS (Santa CECILIA)
         CANAL DO ANFITRIAO
             Av Duque de Caxias, 61, apto 107
 
 ZONA SUL - VERDE
-    CIDADE MONÇÕES/BROOKLIN
+    BROOKLIN
         MAICOTEL
             Rua Arizona, 250, apto 406
             Rua Arizona, 250, apto 1106
             Rua Arizona, 250, apto 1303
-    INDIANÓPOLIS/MOEMA
+    
+    INDIANÓPOLIS/ MOEMA e Saude
         CANAL DO ANFITRIAO
             Alameda Jauaperi, 299, apto 301
             Alameda Jauaperi, 299, apto 302
@@ -398,9 +536,11 @@ ZONA SUL - VERDE
                 - Outros: Padrão 1
                 - Acomodação: cama king size
                 - OBS: ""
-    INDIANÓPOLIS
+    
+    INDIANÓPOLIS/ Moema & Saude
         MAICOTEL
             Avenida dos Carinás, 301, apto 502
+    
     VILA MARIANA
         MAICOTEL
             Gaspar Lourenço, 276, apto 103  
@@ -412,6 +552,7 @@ ZONA SUL - VERDE
                 - Outros: ""
                 - Acomodação: cama queen + sofá cama = até 4 pessoas 
                 - Obs:  ""
+    
     JARDIM DOM BOSCO
         MAICOTEL
             Rua Bento Branco de Andrade Filho, 495, apto 44 

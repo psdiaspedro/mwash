@@ -4,23 +4,25 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"github.com/shopspring/decimal"
 )
 
 type Propriedade struct {
-	ID				uint64	`json:"id,omitempty"`
-	ProprietarioID	uint64	`json:"proprietarioid,omitempty"`
-	Cidade			string	`json:"cidade,omitempty"`
-	Bairro			string	`json:"bairro,omitempty"`
-	CEP				string	`json:"cep,omitempty"`
-	Logadouro		string	`json:"logadouro,omitempty"`
-	Numero			string	`json:"numero,omitempty"`
-	Complemento		string	`json:"complemento,omitempty"`
-	Senha			string	`json:"senha,omitempty"`
-	Acomodacao		string	`json:"acomodacao,omitempty"`
-	Wifi			string	`json:"wifi,omitempty"`
-	Outros			string	`json:"outros,omitempty"`
-	Obs				string	`json:"obs,omitempty"`
-	Cor				uint64	`json:"cor,omitempty"`
+	ID				uint64			`json:"id,omitempty"`
+	ProprietarioID	uint64			`json:"proprietarioid,omitempty"`
+	Cidade			string			`json:"cidade,omitempty"`
+	Bairro			string			`json:"bairro,omitempty"`
+	CEP				string			`json:"cep,omitempty"`
+	Logadouro		string			`json:"logadouro,omitempty"`
+	Numero			string			`json:"numero,omitempty"`
+	Complemento		string			`json:"complemento,omitempty"`
+	Senha			string			`json:"senha,omitempty"`
+	Acomodacao		string			`json:"acomodacao,omitempty"`
+	Wifi			string			`json:"wifi,omitempty"`
+	Outros			string			`json:"outros,omitempty"`
+	Obs				string			`json:"obs,omitempty"`
+	Cor				uint64			`json:"cor,omitempty"`
+	Valor			decimal.Decimal	`json:"valor,omitempty"`
 }
 
 func (propriedade *Propriedade) GerarQueryString(prop Propriedade, propriedadeID uint64) (string, []any) {
