@@ -73,7 +73,7 @@ func (repo Propriedade) BuscarPropriedadesDoUsuario(usuarioID uint64) ([]models.
 }
 
 func (repo Propriedade) BuscarTodasPropriedades() ([]models.Propriedade, error) {
-	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.senha, p.acomodacao, p.wifi, p.outros, p.observacoes, p.cor p.valor from propriedades p")
+	linhas, erro := repo.db.Query("select p.id, p.cidade, p.bairro, p.CEP, p.logadouro, p.numero, p.complemento, p.senha, p.acomodacao, p.wifi, p.outros, p.observacoes, p.cor, p.valor from propriedades p")
 	if erro != nil {
 		return nil, erro
 	}
@@ -136,7 +136,7 @@ func (repo Propriedade) BuscarPropriedadePorId(propriedadeID uint64) (models.Pro
 			&propriedade.Cor,
 			&propriedade.Valor,
 		); erro != nil {
-		return models.Propriedade{}, erro
+			return models.Propriedade{}, erro
 		}
 	}
 
@@ -150,11 +150,11 @@ func (repo Propriedade) AtualizarPropriedade(propriedadeID uint64, propriedade m
 		return erro
 	}
 	defer statement.Close()
-	
+
 	if _, erro = statement.Exec(valores...); erro != nil {
 		return erro
 	}
-	
+
 	return nil
 }
 

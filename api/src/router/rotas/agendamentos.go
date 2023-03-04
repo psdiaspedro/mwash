@@ -59,4 +59,10 @@ var rotasAgendamentos = []Route {
 		Funcao:		controllers.RemoverAgendamento,
 		RequerAuth:	true,
 	},
+	{
+		URI:		"/agendamentos/valores/{usuarioId}/{data}",
+		Metodo:		"GET",  
+		Funcao:		controllers.BuscarValoresAgendamentosPorData,
+		RequerAuth:	true,
+	},
 }  

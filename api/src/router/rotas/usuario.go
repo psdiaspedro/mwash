@@ -29,4 +29,10 @@ var rotasUsuarios = []Route{
 		Funcao:     controllers.AtualizarSenha,
 		RequerAuth: true,
 	},
+	{
+		URI:        "/usuarios/buscar_clientes",
+		Metodo:     "GET",
+		Funcao:     controllers.BuscarClientes,
+		RequerAuth: true,
+	},
 }

@@ -77,6 +77,31 @@ func (repo usuario) BuscarUsuarioPorId(usuarioId uint64) (models.Usuario, error)
 	return usuario, nil
 }
 
+func (repo usuario) BuscarClientes() ([]models.Usuario, error) {
+	linhas, erro := repo.db.Query("SELECT id, nome FROM usuarios WHERE admin = ?", false)
+	if erro != nil {
+		return nil, erro
+	}
+	defer linhas.Close()
+
+	var clientes []models.Usuario
+
+	for linhas.Next() {
+		var cliente models.Usuario
+
+		if erro = linhas.Scan(
+			&cliente.ID,
+			&cliente.Nome,
+		); erro != nil {
+			return nil, erro
+		}
+
+		clientes = append(clientes, cliente)
+	}
+
+	return clientes, nil
+}
+
 func (repo usuario) AtualizarDadosUsuario(usuarioID uint64, usuario models.Usuario) error {
 	query, valores := usuario.GerarQueryString(usuario, usuarioID)
 	statement, erro := repo.db.Prepare(query)
@@ -90,7 +115,6 @@ func (repo usuario) AtualizarDadosUsuario(usuarioID uint64, usuario models.Usuar
 	}
 
 	return nil
-
 }
 
 func (repo usuario) BuscarSenhaAtualUsuario(usuarioID uint64) (string, error) {

@@ -164,3 +164,25 @@ func (data *Data) GerarQueryStringCalendarioUsuarioId(d Data, usuarioId uint64) 
 	}
 	return query, valores
 }
+
+func (data *Data) GerarQueryStringValoresAgendamentos(d Data, usuarioId uint64) (string, []any) {
+	query := "select u.nome, a.dia_agendamento, p.logadouro, p.valor from agendamentos a inner join propriedades p on p.id = a.propriedade_id inner join usuarios u on u.id = p.cliente_id where u.id = ? and "
+
+	var valores []any
+	valores = append(valores, usuarioId)
+
+	if d.Dia == "" && d.Mes == "" && d.Ano != "" {
+		query += "extract(year from dia_agendamento) = ? order by dia_agendamento asc"
+		valores = append(valores, d.Ano)
+	} else if d.Dia == "" && d.Mes != "" && d.Ano != "" {
+		query += "extract(year from dia_agendamento) = ? and extract(month from dia_agendamento) = ? order by dia_agendamento asc"
+		valores = append(valores, d.Ano)
+		valores = append(valores, d.Mes)
+	} else if d.Dia != "" && d.Mes != "" && d.Ano != "" {
+		query += "extract(year from dia_agendamento) = ? and extract(month from dia_agendamento) = ? and extract(day from dia_agendamento) = ? order by dia_agendamento asc"
+		valores = append(valores, d.Ano)
+		valores = append(valores, d.Mes)
+		valores = append(valores, d.Dia)
+	}
+	return query, valores
+}

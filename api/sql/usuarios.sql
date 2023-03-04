@@ -19,4 +19,3 @@ INSERT INTO usuarios (nome, email, senha, contato, admin) VALUES ("Cristiano", "
 
 INSERT INTO usuarios (nome, email, senha, contato, admin) VALUES ("Darlan", "darlan-cliente@maicowash.com", "123456789", "(11)95485-4834", false);
 
-INSERT INTO usuarios (nome, email, senha, contato, admin) VALUES ("Darlan", "darlan-cliente@maicowash.com", "123456789", "(11)95485-4834", false);

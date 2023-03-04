@@ -65,6 +65,34 @@ func BuscarDadosUsuario(w http.ResponseWriter, r *http.Request) {
 	respostas.JSONresponse(w, http.StatusOK, usuario)
 }
 
+func BuscarClientes(w http.ResponseWriter, r *http.Request) {
+	
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	} else if !isAdmin {
+		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("Rota exclusiva do admin"))
+		return
+	}
+
+	db, erro := database.ConectarBancoDeDados()
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	repo := repositorios.NovoRepoUsuario(db)
+	clientes, erro := repo.BuscarClientes()
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSONresponse(w, http.StatusOK, clientes)
+}
+
 /*
 Função chamada pela rota PATCH /usuario/atualizar_dados
 - Rota de uso do cliente

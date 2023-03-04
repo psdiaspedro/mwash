@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+
+	"github.com/shopspring/decimal"
 )
 
 type Agendamento struct {
@@ -13,6 +15,13 @@ type Agendamento struct {
 	Checkin			string	`json:"checkin,omitempty"`
 	Checkout		string	`json:"checkout,omitempty"`
 	Obs				string	`json:"obs,omitempty"`
+}
+
+type AgendamentoValor struct {
+	Nome			string			`json:"nome,omitempty"`
+	DiaAgendamento	string			`json:"diaAgendamento,omitempty"`
+	Logadouro		string			`json:"logadouro,omitempty"`
+	Valor			decimal.Decimal	`json:"valor,omitempty"`
 }
 
 func (agendamento *Agendamento) Preparar(etapa string) error {

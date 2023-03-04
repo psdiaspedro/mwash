@@ -266,6 +266,52 @@ func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
 	respostas.JSONresponse(w, http.StatusOK, agendamentos)
 }
 
+func BuscarValoresAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
+
+	isAdmin, erro := auth.IsAdmin(r)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	} else if !isAdmin {
+		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("acesso exclusivo adm"))
+		return
+	}
+
+	parametros := mux.Vars(r)
+	dataParametro := parametros["data"]
+	idClienteParametro := parametros["usuarioId"]
+	idCliente, err := strconv.ParseUint(idClienteParametro, 10, 64)
+	if err != nil {
+		respostas.JSONerror(w, http.StatusUnauthorized, err)
+		return
+	}
+
+	db, erro := database.ConectarBancoDeDados()
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	var data models.Data
+
+	data, erro = data.VerificaData(dataParametro)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	var valores []models.AgendamentoValor
+
+	repo := repositorios.NovoRepoAgendamento(db)
+	valores, erro = repo.BuscarValoresAgendamentosPorData(data, idCliente)
+	if erro != nil {
+		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+		return
+	}
+	respostas.JSONresponse(w, http.StatusOK, valores)
+}
+
 /*
 Função chamada pela rota GET /agendamentos/adm/{usuarioId}
 - Rota de uso do ADM

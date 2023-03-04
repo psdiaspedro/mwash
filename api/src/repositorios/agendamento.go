@@ -4,6 +4,7 @@ import (
 	"api/src/models"
 	"database/sql"
 	"strconv"
+
 )
 
 type Agendamento struct {
@@ -87,6 +88,35 @@ func (repo Agendamento) BuscarAgendamentosPorDataLogado(data models.Data, usuari
 			&agendamento.Obs,
 		); erro != nil {
 			return nil, erro
+		}
+
+		agendamentos = append(agendamentos, agendamento)
+	}
+
+	return agendamentos, nil
+}
+
+func (repo Agendamento) BuscarValoresAgendamentosPorData(data models.Data, usuarioId uint64) ([]models.AgendamentoValor, error) {
+	query, valores := data.GerarQueryStringValoresAgendamentos(data, usuarioId)
+	linhas, erro := repo.db.Query(query, valores...)
+	if erro != nil {
+		return nil, erro
+	}
+	defer linhas.Close()
+
+
+	var agendamentos []models.AgendamentoValor
+
+	for linhas.Next() {
+		var agendamento models.AgendamentoValor
+
+		if erro = linhas.Scan(
+			&agendamento.Nome,
+			&agendamento.DiaAgendamento,
+			&agendamento.Logadouro,
+			&agendamento.Valor,
+		); erro != nil {
+			return []models.AgendamentoValor{}, erro
 		}
 
 		agendamentos = append(agendamentos, agendamento)
