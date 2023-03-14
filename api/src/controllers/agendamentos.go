@@ -268,14 +268,14 @@ func BuscarAgendamentosPorDataLogado(w http.ResponseWriter, r *http.Request) {
 
 func BuscarValoresAgendamentosPorData(w http.ResponseWriter, r *http.Request) {
 
-	isAdmin, erro := auth.IsAdmin(r)
-	if erro != nil {
-		respostas.JSONerror(w, http.StatusInternalServerError, erro)
-		return
-	} else if !isAdmin {
-		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("acesso exclusivo adm"))
-		return
-	}
+// 	isAdmin, erro := auth.IsAdmin(r)
+// 	if erro != nil {
+// 		respostas.JSONerror(w, http.StatusInternalServerError, erro)
+// 		return
+// 	} else if !isAdmin {
+// 		respostas.JSONerror(w, http.StatusUnauthorized, errors.New("acesso exclusivo adm"))
+// 		return
+// 	}
 
 	parametros := mux.Vars(r)
 	dataParametro := parametros["data"]
